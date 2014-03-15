@@ -78,4 +78,26 @@ def test_social_google_plus():
   }
   assert_equals(expected_referrer, referrer)
 
+def test_search_simple():
+  referrer = Referrer.parse('http://search.yahoo.com/search?p=hello')
+  expected_referrer = {
+    'type': Referrer.Types.SEARCH,
+    'label': 'Yahoo!',
+    'url': 'http://search.yahoo.com/search?p=hello',
+    'domain': 'search.yahoo.com',
+    'query': 'hello',
+  }
+  assert_equals(expected_referrer, referrer)
+
+# def test_search_with_fuzzy_yahoo_country():
+#   referrer = Referrer.parse('http://ca.search.yahoo.com/search?p=hello')
+#   expected_referrer = {
+#     'type': Referrer.Types.SEARCH,
+#     'label': 'Yahoo!',
+#     'url': 'http://ca.search.yahoo.com/search?p=hello',
+#     'domain': 'ca.search.yahoo.com',
+#     'query': 'hello',
+#   }
+#   assert_equals(expected_referrer, referrer)
+
 

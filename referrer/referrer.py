@@ -1,6 +1,6 @@
 from .rules import Rules
 import json
-from urlparse import urlparse
+from urlparse import urlparse, parse_qs
 
 class Referrer:
 
@@ -69,13 +69,28 @@ class Referrer:
     domain = url.netloc
     if domain not in Referrer.rules.search:
       return None
-    rule = Referrer.rules.social[domain]
+    if domain not in Referrer.rules.search:
+      return parse_search_fuzzy(raw_url, url=url)
+    rule = Referrer.rules.search[domain]
+    query_params = parse_qs(url.query)
+    query_common = set.intersection(set(query_params.keys()), set(rule['parameters']))
+    fragment_params = parse_qs(url.fragment)
+    fragment_common = set.intersection(set(fragment_params.keys()), set(rule['parameters']))
+    query = ''
+    if len(query_common) > 0:
+      query = query_params[list(query_common)[0]][0]
+    elif len(fragment_common) > 0:
+      query = fragment_params[list(fragment_common)[0]][0]
+    elif '*' in rule['parameters']:
+      query = ''
+    else:
+      return None
     return {
       'type': Referrer.Types.SEARCH,
       'url': raw_url,
       'domain': rule['domain'],
       'label': rule['label'],
-      'query': '',
+      'query': query,
     }
 
   @staticmethod
@@ -112,74 +127,3 @@ class Referrer:
 
 def parse(raw_url, direct_domains=[]):
   return Referrer(raw_url, direct_domains).parse
-
-# func parseDirect(rawUrl string, u *url.URL, directDomains []string) *Direct {
-#   for _, host := range directDomains {
-#     if host == u.Host {
-#       return &Direct{URL: rawUrl, Domain: u.Host}
-#     }
-#   }
-#   return nil
-# }
-
-# func parseSocial(rawUrl string, u *url.URL) *Social {
-#   if rule, ok := SocialRules[u.Host]; ok {
-#     return &Social{URL: rawUrl, Domain: rule.Domain, Label: rule.Label}
-#   }
-#   return nil
-# }
-
-# func parseEmail(rawUrl string, u *url.URL) *Email {
-#   if rule, ok := EmailRules[u.Host]; ok {
-#     return &Email{URL: rawUrl, Domain: rule.Domain, Label: rule.Label}
-#   }
-#   return nil
-# }
-
-# func parseSearch(rawUrl string, u *url.URL) *Search {
-#   query, _ := url.ParseQuery(u.Fragment)
-#   if query == nil {
-#     query = make(url.Values)
-#   }
-#   for key, values := range u.Query() {
-#     query[key] = values
-#   }
-
-#   if rule, ok := SearchRules[u.Host]; ok {
-#     for _, param := range rule.Parameters {
-#       if param == ParameterWildcard {
-#         return &Search{URL: rawUrl, Domain: rule.Domain, Label: rule.Label, Query: ""}
-#       }
-#       if search, ok := query[param]; ok {
-#         return &Search{URL: rawUrl, Domain: rule.Domain, Label: rule.Label, Query: search[0]}
-#       }
-#     }
-#   }
-#   return nil
-# }
-
-# func fuzzyParseSearch(u *url.URL) *Search {
-#   hostParts := strings.Split(u.Host, ".")
-
-#   query, _ := url.ParseQuery(u.Fragment)
-#   if query == nil {
-#     query = make(url.Values)
-#   }
-#   for key, values := range u.Query() {
-#     query[key] = values
-#   }
-
-#   for _, hostPart := range hostParts {
-#     if engine, present := SearchEngines[hostPart]; present {
-#       for _, param := range engine.Parameters {
-#         if param == ParameterWildcard {
-#           return &Search{Label: engine.Label, Query: "", Domain: u.Host}
-#         }
-#         if search, ok := query[param]; ok {
-#           return &Search{Label: engine.Label, Query: search[0], Domain: u.Host}
-#         }
-#       }
-#     }
-#   }
-#   return nil
-# }
