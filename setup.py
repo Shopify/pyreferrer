@@ -1,11 +1,11 @@
 from setuptools import setup
 
-setup(name='useragent',
+setup(name='referrer',
       version='0.1',
-      description='A useragent parser for Python.',
-      url='http://github.com/snormore/pyuseragent',
+      description='A referrer parser for Python.',
+      url='http://github.com/snormore/pyreferrer',
       author='Steven Normore',
       author_email='snormore@gmail.com',
-      license='Apache',
-      packages=['useragent'],
+      license='MIT',
+      packages=['referrer'],
       zip_safe=False)
