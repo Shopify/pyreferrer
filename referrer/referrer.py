@@ -16,7 +16,7 @@ class Referrer:
   @staticmethod
   def parse_direct(raw_url, direct_domains, url=None):
     if not url:
-      url = urlparse(unicode(raw_url).encode('utf-8'))
+      url = urlparse(raw_url)
     domain = url.netloc
     if domain not in direct_domains:
       return None
@@ -29,7 +29,7 @@ class Referrer:
   @staticmethod
   def parse_email(raw_url, url=None):
     if not url:
-      url = urlparse(unicode(raw_url).encode('utf-8'))
+      url = urlparse(raw_url)
     domain = url.netloc
     if domain not in Referrer.rules.email:
       return None
@@ -44,7 +44,7 @@ class Referrer:
   @staticmethod
   def parse_social(raw_url, url=None):
     if not url:
-      url = urlparse(unicode(raw_url).encode('utf-8'))
+      url = urlparse(raw_url)
     domain = url.netloc
     if domain not in Referrer.rules.social:
       return None
@@ -59,7 +59,7 @@ class Referrer:
   @staticmethod
   def parse_search_fuzzy(raw_url, url=None):
     if not url:
-      url = urlparse(unicode(raw_url).encode('utf-8'))
+      url = urlparse(raw_url)
     domain = url.netloc
     host_parts = domain.split('.')
     for host_part in host_parts:
@@ -80,7 +80,7 @@ class Referrer:
       if query is not None:
         return {
           'type': Referrer.Types.SEARCH,
-          'url': unicode(raw_url).encode('utf-8'),
+          'url': raw_url,
           'domain': domain,
           'label': rule['label'],
           'query': query,
@@ -90,7 +90,7 @@ class Referrer:
   @staticmethod
   def parse_search(raw_url, url=None):
     if not url:
-      url = urlparse(unicode(raw_url).encode('utf-8'))
+      url = urlparse(raw_url)
     domain = url.netloc
     if domain not in Referrer.rules.search:
       return Referrer.parse_search_fuzzy(raw_url, url=url)
@@ -110,7 +110,7 @@ class Referrer:
       return Referrer.parse_search_fuzzy(raw_url, url=url)
     return {
       'type': Referrer.Types.SEARCH,
-      'url': unicode(raw_url).encode('utf-8'),
+      'url': raw_url,
       'domain': rule['domain'],
       'label': rule['label'],
       'query': query,
@@ -119,7 +119,7 @@ class Referrer:
   @staticmethod
   def parse_indirect(raw_url, url=None):
     if not url:
-      url = urlparse(unicode(raw_url).encode('utf-8'))
+      url = urlparse(raw_url)
     return {
       'type': Referrer.Types.INDIRECT,
       'url': raw_url,
