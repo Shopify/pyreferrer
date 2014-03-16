@@ -16,7 +16,7 @@ class Referrer:
   @staticmethod
   def parse_direct(raw_url, direct_domains, url=None):
     if not url:
-      url = urlparse(raw_url)
+      url = urlparse(unicode(raw_url).encode('utf-8'))
     domain = url.netloc
     if domain not in direct_domains:
       return None
@@ -29,7 +29,7 @@ class Referrer:
   @staticmethod
   def parse_email(raw_url, url=None):
     if not url:
-      url = urlparse(raw_url)
+      url = urlparse(unicode(raw_url).encode('utf-8'))
     domain = url.netloc
     if domain not in Referrer.rules.email:
       return None
@@ -44,7 +44,7 @@ class Referrer:
   @staticmethod
   def parse_social(raw_url, url=None):
     if not url:
-      url = urlparse(raw_url)
+      url = urlparse(unicode(raw_url).encode('utf-8'))
     domain = url.netloc
     if domain not in Referrer.rules.social:
       return None
@@ -59,22 +59,22 @@ class Referrer:
   @staticmethod
   def parse_search_fuzzy(raw_url, url=None):
     if not url:
-      url = urlparse(raw_url)
+      url = urlparse(unicode(raw_url).encode('utf-8'))
     pass
 
   @staticmethod
   def parse_search(raw_url, url=None):
     if not url:
-      url = urlparse(raw_url)
+      url = urlparse(unicode(raw_url).encode('utf-8'))
     domain = url.netloc
     if domain not in Referrer.rules.search:
       return None
     if domain not in Referrer.rules.search:
       return parse_search_fuzzy(raw_url, url=url)
     rule = Referrer.rules.search[domain]
-    query_params = parse_qs(url.query)
+    query_params = parse_qs(url.query, keep_blank_values=True)
     query_common = set.intersection(set(query_params.keys()), set(rule['parameters']))
-    fragment_params = parse_qs(url.fragment)
+    fragment_params = parse_qs(url.fragment, keep_blank_values=True)
     fragment_common = set.intersection(set(fragment_params.keys()), set(rule['parameters']))
     query = ''
     if len(query_common) > 0:
@@ -84,10 +84,10 @@ class Referrer:
     elif '*' in rule['parameters']:
       query = ''
     else:
-      return None
+      return parse_search_fuzzy(raw_url, url=url)
     return {
       'type': Referrer.Types.SEARCH,
-      'url': raw_url,
+      'url': unicode(raw_url).encode('utf-8'),
       'domain': rule['domain'],
       'label': rule['label'],
       'query': query,
@@ -96,7 +96,7 @@ class Referrer:
   @staticmethod
   def parse_indirect(raw_url, url=None):
     if not url:
-      url = urlparse(raw_url)
+      url = urlparse(unicode(raw_url).encode('utf-8'))
     return {
       'type': Referrer.Types.INDIRECT,
       'url': raw_url,
