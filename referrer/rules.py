@@ -11,17 +11,24 @@ class Rules:
     raw_rules = json.load(open(raw_rules_path))
 
     fuzzy_search_rules_path = resource_filename(__name__, search_data_path)
-    raw_fuzzy_search_rules = csv.reader(open(fuzzy_search_rules_path), delimiter=',')
+    raw_fuzzy_search_rules = csv.reader(open(fuzzy_search_rules_path), delimiter=':')
 
-    self.search = self.generate_search_rules(raw_rules['search'], raw_fuzzy_search_rules)
+    self.search = self.generate_search_rules(raw_rules['search'])
+    self.search_fuzzy = self.generate_search_fuzzy_rules(raw_fuzzy_search_rules)
     self.social = self.generate_social_rules(raw_rules['social'])
     self.email = self.generate_email_rules(raw_rules['email'])
 
-  def generate_search_rules(self, raw_rules, fuzzy_search_rules):
+  def generate_search_rules(self, raw_rules):
     rules = {}
     for label, rule in raw_rules.items():
       for domain in rule['domains']:
         rules[domain] = {'label': label, 'domain': domain, 'parameters': rule['parameters']}
+    return rules
+
+  def generate_search_fuzzy_rules(self, raw_rules):
+    rules = {}
+    for row in raw_rules:
+      rules[row[1]] = {'label': row[0], 'domain': row[1], 'parameters': row[2].split(',')}
     return rules
 
   def generate_social_rules(self, raw_rules):

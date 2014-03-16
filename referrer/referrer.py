@@ -60,7 +60,32 @@ class Referrer:
   def parse_search_fuzzy(raw_url, url=None):
     if not url:
       url = urlparse(unicode(raw_url).encode('utf-8'))
-    pass
+    domain = url.netloc
+    host_parts = domain.split('.')
+    for host_part in host_parts:
+      if host_part not in Referrer.rules.search_fuzzy:
+        continue
+      rule = Referrer.rules.search_fuzzy[host_part]
+      query_params = parse_qs(url.query, keep_blank_values=True)
+      query_common = set.intersection(set(query_params.keys()), set(rule['parameters']))
+      fragment_params = parse_qs(url.fragment, keep_blank_values=True)
+      fragment_common = set.intersection(set(fragment_params.keys()), set(rule['parameters']))
+      query = None
+      if len(query_common) > 0:
+        query = query_params[list(query_common)[0]][0]
+      elif len(fragment_common) > 0:
+        query = fragment_params[list(fragment_common)[0]][0]
+      elif '*' in rule['parameters']:
+        query = ''
+      if query is not None:
+        return {
+          'type': Referrer.Types.SEARCH,
+          'url': unicode(raw_url).encode('utf-8'),
+          'domain': domain,
+          'label': rule['label'],
+          'query': query,
+        }
+    return None
 
   @staticmethod
   def parse_search(raw_url, url=None):
@@ -68,9 +93,7 @@ class Referrer:
       url = urlparse(unicode(raw_url).encode('utf-8'))
     domain = url.netloc
     if domain not in Referrer.rules.search:
-      return None
-    if domain not in Referrer.rules.search:
-      return parse_search_fuzzy(raw_url, url=url)
+      return Referrer.parse_search_fuzzy(raw_url, url=url)
     rule = Referrer.rules.search[domain]
     query_params = parse_qs(url.query, keep_blank_values=True)
     query_common = set.intersection(set(query_params.keys()), set(rule['parameters']))
@@ -84,7 +107,7 @@ class Referrer:
     elif '*' in rule['parameters']:
       query = ''
     else:
-      return parse_search_fuzzy(raw_url, url=url)
+      return Referrer.parse_search_fuzzy(raw_url, url=url)
     return {
       'type': Referrer.Types.SEARCH,
       'url': unicode(raw_url).encode('utf-8'),

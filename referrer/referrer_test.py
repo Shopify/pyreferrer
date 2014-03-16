@@ -101,27 +101,27 @@ def test_search_with_query_in_fragment():
   }
   assert_equals(expected_referrer, referrer)
 
-# def test_search_with_fuzzy_yahoo_country():
-#   referrer = Referrer.parse('http://ca.search.yahoo.com/search?p=hello')
-#   expected_referrer = {
-#     'type': Referrer.Types.SEARCH,
-#     'label': 'Yahoo!',
-#     'url': 'http://ca.search.yahoo.com/search?p=hello',
-#     'domain': 'ca.search.yahoo.com',
-#     'query': 'hello',
-#   }
-#   assert_equals(expected_referrer, referrer)
+def test_search_with_fuzzy_yahoo_country():
+  referrer = Referrer.parse('http://ca.search.yahoo.com/search?p=hello')
+  expected_referrer = {
+    'type': Referrer.Types.SEARCH,
+    'label': 'Yahoo!',
+    'url': 'http://ca.search.yahoo.com/search?p=hello',
+    'domain': 'ca.search.yahoo.com',
+    'query': 'hello',
+  }
+  assert_equals(expected_referrer, referrer)
 
-# def test_search_with_fuzzy_yahoo_country_and_query_in_fragment():
-#   referrer = Referrer.parse('http://ca.search.yahoo.com/search#p=hello')
-#   expected_referrer = {
-#     'type': Referrer.Types.SEARCH,
-#     'label': 'Yahoo!',
-#     'url': 'http://search.yahoo.com/search?p=hello',
-#     'domain': 'search.yahoo.com',
-#     'query': 'hello',
-#   }
-#   assert_equals(expected_referrer, referrer)
+def test_search_with_fuzzy_yahoo_country_and_query_in_fragment():
+  referrer = Referrer.parse('http://ca.search.yahoo.com/search#p=hello')
+  expected_referrer = {
+    'type': Referrer.Types.SEARCH,
+    'label': 'Yahoo!',
+    'url': 'http://ca.search.yahoo.com/search#p=hello',
+    'domain': 'ca.search.yahoo.com',
+    'query': 'hello',
+  }
+  assert_equals(expected_referrer, referrer)
 
 def test_search_bing_not_live():
   referrer = Referrer.parse('http://bing.com/?q=blargh')
@@ -181,7 +181,7 @@ def test_search_with_empty_query():
   }
   assert_equals(expected_referrer, referrer)
 
-def test_search_with_google_https_no_params():
+def test_search_google_https_with_no_params():
   referrer = Referrer.parse('https://google.com')
   expected_referrer = {
     'type': Referrer.Types.SEARCH,
@@ -189,5 +189,16 @@ def test_search_with_google_https_no_params():
     'url': 'https://google.com',
     'domain': 'google.com',
     'query': '',
+  }
+  assert_equals(expected_referrer, referrer)
+
+def test_search_google_with_query():
+  referrer = Referrer.parse('https://www.google.co.in/url?sa=t&rct=j&q=test&esrc=s&source=web&cd=1&ved=0CDkQFjAA&url=http%3A%2F%2Fwww.yellowfashion.in%2F&ei=aZCPUtXmLcGQrQepkIHACA&usg=AFQjCNE-R5-7CENi9oqYe4vG-0g0E7nCSQ&bvm=bv.56988011,d.bmk')
+  expected_referrer = {
+    'type': Referrer.Types.SEARCH,
+    'label': 'Google',
+    'url': 'https://www.google.co.in/url?sa=t&rct=j&q=test&esrc=s&source=web&cd=1&ved=0CDkQFjAA&url=http%3A%2F%2Fwww.yellowfashion.in%2F&ei=aZCPUtXmLcGQrQepkIHACA&usg=AFQjCNE-R5-7CENi9oqYe4vG-0g0E7nCSQ&bvm=bv.56988011,d.bmk',
+    'domain': 'www.google.co.in',
+    'query': 'test',
   }
   assert_equals(expected_referrer, referrer)
