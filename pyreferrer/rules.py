@@ -37,7 +37,7 @@ class Rules:
       for domain in raw_rule['domains']:
         rule = {'label': label, 'domain': domain}
         rules[domain] = rule
-        for prefix in ['www', 'm']:
+        for prefix in ['www', 'm', 'l', 'lm']:
           rules['%s.%s' % (prefix, domain, )] = rule
     return rules
 

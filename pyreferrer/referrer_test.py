@@ -69,6 +69,26 @@ def test_social_with_prefix_m():
   }
   assert_equals(expected_referrer, referrer)
 
+def test_social_with_prefix_l():
+  referrer = Referrer.parse('https://l.twitter.com/snormore/status/391149968360103936')
+  expected_referrer = {
+    'type': Referrer.Types.SOCIAL,
+    'label': 'Twitter',
+    'url': 'https://l.twitter.com/snormore/status/391149968360103936',
+    'domain': 'twitter.com',
+  }
+  assert_equals(expected_referrer, referrer)
+
+def test_social_with_prefix_lm():
+  referrer = Referrer.parse('https://lm.twitter.com/snormore/status/391149968360103936')
+  expected_referrer = {
+    'type': Referrer.Types.SOCIAL,
+    'label': 'Twitter',
+    'url': 'https://lm.twitter.com/snormore/status/391149968360103936',
+    'domain': 'twitter.com',
+  }
+  assert_equals(expected_referrer, referrer)
+
 def test_social_google_plus():
   referrer = Referrer.parse('http://plus.url.google.com/url?sa=z&n=1394219098538&url=http%3A%2F%2Fjoe.blogspot.ca&usg=jo2tEVIcI5Wh-6t--v-1ODEeGG8.')
   expected_referrer = {
