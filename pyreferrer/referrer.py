@@ -22,7 +22,8 @@ class Referrer:
       return None
     return {
       'type': Referrer.Types.DIRECT,
-      'url': raw_url,
+      'raw_url': raw_url,
+      'url': domain + url.path,
       'domain': domain,
     }
 
@@ -36,7 +37,8 @@ class Referrer:
     rule = Referrer.rules.email[domain]
     return {
       'type': Referrer.Types.EMAIL,
-      'url': raw_url,
+      'raw_url': raw_url,
+      'url': domain + url.path,
       'domain': rule['domain'],
       'label': rule['label'],
     }
@@ -51,7 +53,8 @@ class Referrer:
     rule = Referrer.rules.social[domain]
     return {
       'type': Referrer.Types.SOCIAL,
-      'url': raw_url,
+      'raw_url': raw_url,
+      'url': domain + url.path,
       'domain': rule['domain'],
       'label': rule['label'],
     }
@@ -80,9 +83,10 @@ class Referrer:
       if query is not None:
         return {
           'type': Referrer.Types.SEARCH,
-          'url': raw_url,
+          'raw_url': raw_url,
           'domain': domain,
           'label': rule['label'],
+          'url': domain + url.path,
           'query': query,
         }
     return None
@@ -110,7 +114,8 @@ class Referrer:
       return Referrer.parse_search_fuzzy(raw_url, url=url)
     return {
       'type': Referrer.Types.SEARCH,
-      'url': raw_url,
+      'raw_url': raw_url,
+      'url': domain + url.path,
       'domain': rule['domain'],
       'label': rule['label'],
       'query': query,
@@ -122,7 +127,8 @@ class Referrer:
       url = urlparse(raw_url)
     return {
       'type': Referrer.Types.INDIRECT,
-      'url': raw_url,
+      'raw_url': raw_url,
+      'url': domain + url.path,
       'domain': url.netloc,
     }
 
