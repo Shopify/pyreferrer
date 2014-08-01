@@ -8,4 +8,6 @@ setup(name='pyreferrer',
       author_email='snormore@gmail.com',
       license='MIT',
       packages=['pyreferrer'],
+      package_data={'pyreferrer': ['data/referrers.json', 'search.csv', ]},
+      include_package_data=True,
       zip_safe=False)
