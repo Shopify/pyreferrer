@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='pyreferrer',
-      version='0.1',
+      version='0.2',
       description='A referrer parser for Python.',
       url='http://github.com/snormore/pyreferrer',
       author='Steven Normore',
