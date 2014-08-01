@@ -1,7 +1,7 @@
-from setuptools import setup
+from distutils.core import setup
 
 setup(name='pyreferrer',
-      version='0.2.2',
+      version='0.2.3',
       description='A referrer parser for Python.',
       url='http://github.com/snormore/pyreferrer',
       author='Steven Normore',
