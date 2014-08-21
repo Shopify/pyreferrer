@@ -6,12 +6,23 @@ from urlparse import urlparse, parse_qs
 class Referrer:
 
   class Types:
-    UNKNOWN  = 'unknown'
+    INVALID  = 'invalid'
     INDIRECT = 'indirect'
     DIRECT   = 'direct'
     SEARCH   = 'search'
     SOCIAL   = 'social'
     EMAIL    = 'email'
+
+  BLANK_REFERRER = {
+    'type': Types.INVALID,
+    'url': '',
+    'subdomain': '',
+    'domain': '',
+    'label': '',
+    'tld': '',
+    'path': '',
+    'query': ''
+  }
 
   rules = Ruleset().rules
 
@@ -39,8 +50,10 @@ class Referrer:
 
   @staticmethod
   def parse(raw_url, custom_rules=None):
-    rules = custom_rules or Referrer.rules
+    if raw_url is None:
+      return Referrer.BLANK_REFERRER
     raw_url = raw_url.strip()
+    rules = custom_rules or Referrer.rules
     url = urlparse(raw_url)
     domain_info = tldextract.extract(raw_url)
 
@@ -56,7 +69,7 @@ class Referrer:
     }
 
     if Referrer.is_valid_url(url, domain_info):
-      # First check for an exact match of the url. Then check for a match with only the domain + tld
+      # First check for an exact match of the url. Then check for a match with different combinations of domain, subdomain and tld
       known_url = rules.get(url.netloc + url.path)\
                   or rules.get(domain_info.registered_domain + url.path)\
                   or rules.get(url.netloc)\
@@ -67,7 +80,7 @@ class Referrer:
         referrer['type'] = known_url['type']
         referrer['query'] = Referrer.parse_query_string(url, known_url.get('parameters'))
     else:
-      referrer['type'] = Referrer.Types.UNKNOWN if raw_url else Referrer.Types.DIRECT
+      referrer['type'] = Referrer.Types.INVALID if raw_url else Referrer.Types.DIRECT
 
     return referrer
 

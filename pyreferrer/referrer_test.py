@@ -1,4 +1,5 @@
 # coding=utf-8
+
 from referrer import *
 from nose.tools import assert_equals
 
@@ -40,7 +41,7 @@ def test_a_url_that_does_not_match_any_known_urls_has_its_label_set_as_the_capit
   referrer = Referrer.parse('http://walrus.com/')
   assert_equals('Walrus', referrer['label'])
 
-def test_an_invalid_url_or_absolute_url_is_classified_as_unknown():
+def test_an_invalid_url_or_absolute_url_is_classified_as_invalid():
   urls = [
       'blap',
       'blap blap',
@@ -51,7 +52,11 @@ def test_an_invalid_url_or_absolute_url_is_classified_as_unknown():
     ]
   for url in urls:
     referrer = Referrer.parse(url)
-    assert_equals(referrer['type'], Referrer.Types.UNKNOWN)
+    assert_equals(Referrer.Types.INVALID, referrer['type'])
+
+def test_parse_with_nonetype_passed_in_is_invalid():
+  referrer = Referrer.parse(None)
+  assert_equals(Referrer.Types.INVALID, referrer['type'])
 
 def test_parse_tries_to_match_a_known_url_using_everything_but_the_query_string():
   rules = {"www.zambo.com/search": {"type": "search", "label": "Zambo"}}
