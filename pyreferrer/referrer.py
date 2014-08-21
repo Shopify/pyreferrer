@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 from .ruleset import Ruleset
 import json
 import tldextract
