@@ -1,6 +1,5 @@
 from pkg_resources import resource_filename
 import json
-import csv
 
 class Ruleset:
   def __init__(self, data_path='data/referrers.json'):
