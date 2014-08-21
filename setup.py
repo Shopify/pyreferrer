@@ -1,9 +1,9 @@
 from distutils.core import setup
 
 setup(name='pyreferrer',
-      version='0.2.4',
+      version='0.3.0',
       description='A referrer parser for Python.',
-      url='http://github.com/snormore/pyreferrer',
+      url='http://github.com/Shopify/pyreferrer',
       author='Steven Normore',
       author_email='snormore@gmail.com',
       license='MIT',
