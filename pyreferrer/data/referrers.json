@@ -3749,6 +3749,11 @@
                 "viadeo.com"
             ]
         },
+        "Vimeo": {
+            "domains": [
+                "vimeo.com"
+            ]
+        },
         "Vkontakte": {
             "domains": [
                 "vk.com",
@@ -3799,6 +3804,12 @@
         "vKruguDruzei.ru": {
             "domains": [
                 "vkrugudruzei.ru"
+            ]
+        },
+        "YouTube": {
+            "domains": [
+                "youtube.com",
+                "youtu.be"
             ]
         }
     },
