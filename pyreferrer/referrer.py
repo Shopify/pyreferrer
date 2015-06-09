@@ -2,7 +2,13 @@ from __future__ import unicode_literals
 from .ruleset import Ruleset
 import json
 import tldextract
-from urlparse import urlparse, parse_qs
+
+try:
+  #Python2
+  from urlparse import urlparse, parse_qs
+except ImportError:
+  #Python3
+  from urllib.parse import urlparse, parse_qs
 
 class Referrer:
 
