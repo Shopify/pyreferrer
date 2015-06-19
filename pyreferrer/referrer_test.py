@@ -1,6 +1,6 @@
 # coding=utf-8
-
-from referrer import *
+from __future__ import absolute_import
+from .referrer import *
 from nose.tools import assert_equals
 
 def test_parse_splits_the_url_into_its_components():
