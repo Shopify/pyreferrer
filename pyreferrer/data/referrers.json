@@ -3684,6 +3684,11 @@
                 "plaxo.com"
             ]
         },
+        "Polyvore": {
+            "domains": [
+                "polyvore.com"
+            ]
+        },
         "Qzone": {
             "domains": [
                 "qzone.qq.com"
@@ -3755,6 +3760,11 @@
                 "t.co"
             ]
         },
+        "Twitch":{
+          "domains": [
+                "twitch.tv"
+          ]  
+        },
         "Viadeo": {
             "domains": [
                 "viadeo.com"
@@ -3770,6 +3780,11 @@
                 "vk.com",
                 "vkontakte.ru"
             ]
+        },
+        "Wanelo": {
+          "domains": [
+             "wanelo.com"
+            ]  
         },
         "WAYN": {
             "domains": [
