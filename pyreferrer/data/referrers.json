@@ -3518,6 +3518,11 @@
                 "global.cyworld.com"
             ]
         },
+        "DeviantArt":{
+            "domains": [
+                "deviantart.com"
+            ]
+        },
         "Douban": {
             "domains": [
                 "douban.com"
@@ -3645,6 +3650,11 @@
         "Medium": {
             "domains": [
                 "medium.com"
+            ]
+        },
+        "Meetup": {
+            "domains": [
+                "meetup.com"
             ]
         },
         "Mixi": {
