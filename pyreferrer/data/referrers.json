@@ -2367,6 +2367,14 @@
                 "query"
             ]
         },
+        "Haosou": {
+            "domains": [
+                "www.haosou.com"
+            ],
+            "parameters": [
+                "q"
+            ]
+        },
         "I-play": {
             "domains": [
                 "start.iplay.com"
@@ -3490,6 +3498,11 @@
                 "blackplanet.com"
             ]
         },
+        "Bloglovin'": {
+            "domains": [
+                "bloglovin.com"
+            ]
+        },
         "Buzznet": {
             "domains": [
                 "wayn.com"
@@ -3524,6 +3537,11 @@
         "Flixster": {
             "domains": [
                 "flixster.com"
+            ]
+        },
+        "Flipboard": {
+            "domains": [
+                "flipboard.com"
             ]
         },
         "Fotolog": {
@@ -3593,6 +3611,11 @@
                 "identi.ca"
             ]
         },
+        "Imgur": {
+            "domains": [
+                "imgur.com"
+            ]
+        },
         "Instagram": {
             "domains": [
                 "instagram.com"
@@ -3617,6 +3640,11 @@
         "Mail.ru": {
             "domains": [
                 "my.mail.ru"
+            ]
+        },
+        "Medium": {
+            "domains": [
+                "medium.com"
             ]
         },
         "Mixi": {
@@ -3751,7 +3779,8 @@
         },
         "Tumblr": {
             "domains": [
-                "tumblr.com"
+                "tumblr.com",
+                "umblr.com"
             ]
         },
         "Twitter": {
