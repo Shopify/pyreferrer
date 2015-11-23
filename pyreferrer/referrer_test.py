@@ -322,3 +322,18 @@ def test_search_google_adwords():
     'google_search_type': 'Google AdWords Referrer',
   }
   assert_equals(expected_referrer, referrer)
+
+def test_search_google_pagead():
+  referrer = Referrer.parse('http://www.googleadservices.com/pagead/aclk?sa=l&q=flowers&ohost=www.google.com')
+  expected_referrer = {
+    'type': Referrer.Types.SEARCH,
+    'label': 'Google',
+    'url': 'http://www.googleadservices.com/pagead/aclk?sa=l&q=flowers&ohost=www.google.com',
+    'domain': 'googleadservices',
+    'subdomain': 'www',
+    'tld': 'com',
+    'path': '/pagead/aclk',
+    'query': 'flowers',
+    'google_search_type': 'Google AdWords Referrer',
+  }
+  assert_equals(expected_referrer, referrer)
