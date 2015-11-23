@@ -56,6 +56,13 @@ class Referrer:
     return url.scheme and domain_info.domain and domain_info.tld
 
   @staticmethod
+  def google_search_type(ref_type, label, path):
+    if ref_type == Referrer.Types.SEARCH and label == 'Google':
+      return 'Google AdWords Referrer' if path.startswith('/aclk') or path.startswith('/pagead/aclk') else 'Organic Google Search'
+    else:
+      return 'Not Google Search'
+
+  @staticmethod
   def parse(raw_url, custom_rules=None):
     if raw_url is None:
       return Referrer.BLANK_REFERRER
@@ -88,6 +95,8 @@ class Referrer:
         referrer['query'] = Referrer.parse_query_string(url, known_url.get('parameters'))
     else:
       referrer['type'] = Referrer.Types.INVALID if raw_url else Referrer.Types.DIRECT
+
+    referrer['google_search_type'] = Referrer.google_search_type(referrer['type'], referrer['label'], referrer['path'])
 
     return referrer
 
