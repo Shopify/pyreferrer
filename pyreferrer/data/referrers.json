@@ -1082,7 +1082,8 @@
                 "www.googleearth.fr",
                 "webcache.googleusercontent.com",
                 "encrypted.google.com",
-                "googlesyndicatedsearch.com"
+                "googlesyndicatedsearch.com",
+                "www.googleadservices.com"
             ],
             "parameters": [
                 "q",
