@@ -308,6 +308,21 @@ def test_search_google_with_query():
   }
   assert_equals(expected_referrer, referrer)
 
+def test_search_google_image():
+  referrer = Referrer.parse('https://www.google.ca/imgres?q=tbn:ANd9GcRXBkHjJiAvKXkjGzSEhilZS5vJX0UPFmyZTlmmRFpiv-IYQmj4')
+  expected_referrer = {
+    'type': Referrer.Types.SEARCH,
+    'label': 'Google Images',
+    'url': 'https://www.google.ca/imgres?q=tbn:ANd9GcRXBkHjJiAvKXkjGzSEhilZS5vJX0UPFmyZTlmmRFpiv-IYQmj4',
+    'domain': 'google',
+    'subdomain': 'www',
+    'tld': 'ca',
+    'path': '/imgres',
+    'query': 'tbn:ANd9GcRXBkHjJiAvKXkjGzSEhilZS5vJX0UPFmyZTlmmRFpiv-IYQmj4',
+    'google_search_type': 'Organic Google Search'
+  }
+  assert_equals(expected_referrer, referrer)
+
 def test_search_google_adwords():
   referrer = Referrer.parse('http://www.google.ca/aclk?sa=l&ai=Cp3RJ8ri&sig=AOD64f7w&clui=0&rct=j&q=&ved=0CBoQDEA&adurl=http://www.domain.com/')
   expected_referrer = {

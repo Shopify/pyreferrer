@@ -57,7 +57,7 @@ class Referrer:
 
   @staticmethod
   def google_search_type(ref_type, label, path):
-    if ref_type == Referrer.Types.SEARCH and label == 'Google':
+    if ref_type == Referrer.Types.SEARCH and 'Google' in label:
       return 'Google AdWords Referrer' if path.startswith('/aclk') or path.startswith('/pagead/aclk') else 'Organic Google Search'
     else:
       return 'Not Google Search'
