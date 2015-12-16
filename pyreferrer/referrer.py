@@ -97,6 +97,7 @@ class Referrer:
       referrer['type'] = Referrer.Types.INVALID if raw_url else Referrer.Types.DIRECT
 
     referrer['google_search_type'] = Referrer.google_search_type(referrer['type'], referrer['label'], referrer['path'])
+    referrer['query'] = referrer['query'].decode('utf-8')
 
     return referrer
 

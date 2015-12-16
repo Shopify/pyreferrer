@@ -227,7 +227,7 @@ def test_search_non_ascii():
     'subdomain': 'search',
     'tld': 'com',
     'path': '/search',
-    'query': 'vinduespudsning myshopify rengøring mkobetic',
+    'query': u'vinduespudsning myshopify rengøring mkobetic',
     'google_search_type': 'Not Google Search'
   }
   assert_equals(expected_referrer, referrer)
@@ -243,7 +243,7 @@ def test_search_with_cyrillics():
     'subdomain': 'www',
     'tld': 'com',
     'path': '/yandsearch',
-    'query': 'ботинки packer-shoes',
+    'query': u'ботинки packer-shoes',
     'google_search_type': 'Not Google Search'
   }
   assert_equals(expected_referrer, referrer)
