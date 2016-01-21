@@ -22,6 +22,14 @@
                 "mail.yahoo.com",
                 "mail.yahoo.co.uk"
             ]
+        },
+        "MailChimp": {
+            "domains": [
+                "list-manage.com",
+                "list-manage1.com",
+                "list-manage2.com",
+                "list-manage3.com"
+            ]
         }
     },
     "search": {
@@ -3803,7 +3811,7 @@
         "Twitch":{
           "domains": [
                 "twitch.tv"
-          ]  
+          ]
         },
         "Viadeo": {
             "domains": [
@@ -3824,7 +3832,7 @@
         "Wanelo": {
           "domains": [
              "wanelo.com"
-            ]  
+            ]
         },
         "WAYN": {
             "domains": [
