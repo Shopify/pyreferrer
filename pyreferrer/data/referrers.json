@@ -12,6 +12,11 @@
                 "mail.google.com"
             ]
         },
+        "Xfinity":{
+            "domains": [
+                "web.mail.comcast.net"
+            ]
+        },
         "Orange Webmail": {
             "domains": [
                 "orange.fr/webmail"
@@ -362,7 +367,14 @@
                 "tieba.baidu.com",
                 "news.baidu.com",
                 "web.gougou.com",
-                "baidu.com"
+                "m.baidu.com",
+                "image.baidu.com",
+                "tieba.baidu.com",
+                "fanyi.baidu.com",
+                "zhidao.baidu.com",
+                "www.baidu.co.th",
+                "m5.baidu.com",
+                "m.siteapp.baidu.com"
             ],
             "parameters": [
                 "wd",
