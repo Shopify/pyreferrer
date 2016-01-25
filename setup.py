@@ -1,7 +1,7 @@
 from distutils.core import setup
 
 setup(name='pyreferrer',
-      version='0.3.8',
+      version='0.3.9',
       description='A referrer parser for Python.',
       url='http://github.com/Shopify/pyreferrer',
       author='Steven Normore',
