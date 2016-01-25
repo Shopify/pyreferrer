@@ -3489,8 +3489,9 @@
         },
         "Yellowpages": {
             "domains": [
-                "yellowpages.ca",
-                "yellowpages.com",
+                "www.yellowpages.com",
+                "www.yellowpages.com.au",
+                "www.yellowpages.ca"
             ],
             "parameters": [
                 "q"
