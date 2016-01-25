@@ -988,6 +988,13 @@
                 "www.google.co.za",
                 "www.google.co.zm",
                 "www.google.co.zw",
+                "www.google.com.mm",
+                "www.google.sr",
+                "www.google.com.pg",
+                "www.google.bt",
+                "www.google.ng",
+                "www.google.com.iq",
+                "www.google.co.ao",
                 "google.com",
                 "google.ac",
                 "google.ad",
@@ -3408,7 +3415,10 @@
                 "search.yahoo.co.jp",
                 "www.cercato.it",
                 "search.offerbox.com",
-                "ys.mirostart.com"
+                "ys.mirostart.com",
+                "image.search.yahoo.co.jp",
+                "m.chiebukuro.yahoo.co.jp",
+                "detail.chiebukuro.yahoo.co.jp"
             ],
             "parameters": [
                 "p",
