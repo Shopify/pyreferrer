@@ -352,3 +352,29 @@ def test_search_google_pagead():
     'google_search_type': 'Google AdWords Referrer',
   }
   assert_equals(expected_referrer, referrer)
+
+
+def test_blank_referrer_with_user_agent_is_enchanced_by_user_agent():
+  user_agent_from_twitter = 'Mozilla/5.0 (iPhone; CPU iPhone OS 7_0_4 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Mobile/11B554a Twitter for iPhone'
+  blank_referrer_with_twitter_ua = Referrer.parse('', user_agent=user_agent_from_twitter)
+  expected_referrer = {
+    'type': Referrer.Types.SOCIAL,
+    'url': 'https://twitter.com',
+    'subdomain': '',
+    'domain': 'twitter',
+    'label': 'Twitter',
+    'tld': 'com',
+    'path': '',
+    'query': '',
+    'google_search_type': 'Not Google Search'
+  }
+  assert_equals(expected_referrer, blank_referrer_with_twitter_ua)
+
+def test_twitter_user_agent_gives_the_same_info_as_twitter_url():
+  user_agent_from_twitter = 'Mozilla/5.0 (iPhone; CPU iPhone OS 7_0_4 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Mobile/11B554a Twitter for iPhone'
+
+  referrer_with_url = Referrer.parse('https://twitter.com')
+  referrer_with_ua = Referrer.parse('', user_agent=user_agent_from_twitter)
+  assert_equals(referrer_with_ua, referrer_with_url)
+
+
