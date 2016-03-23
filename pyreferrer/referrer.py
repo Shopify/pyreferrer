@@ -71,11 +71,13 @@ class Referrer:
 
   @staticmethod
   def extract_user_agent_info(user_agent):
+      empty_info =  {'domain': '', 'url': '', 'tld': '', 'registered_domain': ''}
       if user_agent is None:
-          return {'domain': '', 'url': '', 'tld': '', 'registered_domain': ''}
+          return empty_info
       for substrings, domain_info in Referrer.USER_AGENT_SUBSTRINGS:
           if any(substring in user_agent for substring in substrings):
               return domain_info
+      return empty_info
 
   @staticmethod
   def parse(raw_url, custom_rules=None, user_agent=None):
