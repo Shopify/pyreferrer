@@ -425,4 +425,20 @@ def test_provided_url_overrides_what_is_present_in_useragent():
   }
   assert_equals(expected_referrer, referrer_with_twitter_url_and_pinterest_ua)
 
+def test_doesnt_fail_if_empty_referrer_url_and_non_social_ua():
+    user_agent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 7_0_4 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Mobile/11B554a'
+    referrer = Referrer.parse('', user_agent=user_agent)
+    expected_referrer = {
+      'type': Referrer.Types.DIRECT,
+      'url': '',
+      'subdomain': '',
+      'domain': '',
+      'label': '',
+      'tld': '',
+      'path': '',
+      'query': '',
+      'google_search_type': 'Not Google Search'
+    }
+    assert_equals(expected_referrer, referrer)
+
 
