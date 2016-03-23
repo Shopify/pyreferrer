@@ -21,9 +21,9 @@ class Referrer:
     EMAIL    = 'email'
 
   USER_AGENT_SUBSTRINGS = [
-      (['Twitter'],          {'tld': 'com', 'domain': 'twitter', 'url': 'https://twitter.com', 'registered_domain': 'twitter.com'}),
-      (['Pinterest'],        {'tld': 'com', 'domain': 'pinterest', 'url': 'https://pinterest.com', 'registered_domain': 'pinterest.com'}),
-      (['FBAV', 'Facebook'], {'tld': 'com', 'domain': 'facebook', 'url': 'https://facebook.com', 'registered_domain': 'facebook.com'}),
+      (['Twitter'],          {'tld': 'com', 'domain': 'twitter', 'url': 'twitter://twitter.com', 'registered_domain': 'twitter.com'}),
+      (['Pinterest'],        {'tld': 'com', 'domain': 'pinterest', 'url': 'pinterest://pinterest.com', 'registered_domain': 'pinterest.com'}),
+      (['FBAV', 'Facebook'], {'tld': 'com', 'domain': 'facebook', 'url': 'facebook://facebook.com', 'registered_domain': 'facebook.com'}),
   ]
 
   BLANK_REFERRER = {
