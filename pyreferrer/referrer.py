@@ -20,6 +20,12 @@ class Referrer:
     SOCIAL   = 'social'
     EMAIL    = 'email'
 
+  USER_AGENT_SUBSTRINGS = [
+      (['Twitter'],          {'tld': 'com', 'domain': 'twitter', 'url': 'twitter://twitter.com', 'registered_domain': 'twitter.com'}),
+      (['Pinterest'],        {'tld': 'com', 'domain': 'pinterest', 'url': 'pinterest://pinterest.com', 'registered_domain': 'pinterest.com'}),
+      (['FBAV', 'Facebook'], {'tld': 'com', 'domain': 'facebook', 'url': 'facebook://facebook.com', 'registered_domain': 'facebook.com'}),
+  ]
+
   BLANK_REFERRER = {
     'type': Types.INVALID,
     'url': '',
@@ -52,8 +58,8 @@ class Referrer:
     return query
 
   @staticmethod
-  def is_valid_url(url, domain_info):
-    return url.scheme and domain_info.domain and domain_info.tld
+  def is_valid(url, domain_info, user_agent_info):
+    return (url.scheme and domain_info.domain and domain_info.tld) or user_agent_info['url']
 
   @staticmethod
   def google_search_type(ref_type, label, path):
@@ -62,32 +68,43 @@ class Referrer:
     else:
       return 'Not Google Search'
 
+
   @staticmethod
-  def parse(raw_url, custom_rules=None):
-    if raw_url is None:
+  def extract_user_agent_info(user_agent):
+      if user_agent is None:
+          return {'domain': '', 'url': '', 'tld': '', 'registered_domain': ''}
+      for substrings, domain_info in Referrer.USER_AGENT_SUBSTRINGS:
+          if any(substring in user_agent for substring in substrings):
+              return domain_info
+
+  @staticmethod
+  def parse(raw_url, custom_rules=None, user_agent=None):
+    if raw_url is None and user_agent is None:
       return Referrer.BLANK_REFERRER
     raw_url = raw_url.strip()
     rules = custom_rules or Referrer.rules
     url = urlparse(raw_url)
     domain_info = tldextract.extract(raw_url)
+    user_agent_info = Referrer.extract_user_agent_info(user_agent)
 
     referrer = {
       'type': Referrer.Types.INDIRECT,
-      'url': raw_url,
+      'url': raw_url or user_agent_info['url'],
       'subdomain': domain_info.subdomain,
-      'domain': domain_info.domain,
+      'domain': domain_info.domain or user_agent_info['domain'],
       'label': domain_info.domain.title(),
-      'tld': domain_info.suffix,
+      'tld': domain_info.suffix or user_agent_info['tld'],
       'path': url.path,
       'query': ''
     }
 
-    if Referrer.is_valid_url(url, domain_info):
+    if Referrer.is_valid(url, domain_info, user_agent_info):
       # First check for an exact match of the url. Then check for a match with different combinations of domain, subdomain and tld
       known_url = rules.get(url.netloc + url.path)\
                   or rules.get(domain_info.registered_domain + url.path)\
                   or rules.get(url.netloc)\
-                  or rules.get(domain_info.registered_domain)
+                  or rules.get(domain_info.registered_domain)\
+                  or rules.get(user_agent_info['registered_domain'])
 
       if known_url:
         referrer['label'] = known_url['label']
@@ -100,5 +117,5 @@ class Referrer:
 
     return referrer
 
-def parse(raw_url):
-  return Referrer(raw_url).parse
+def parse(raw_url, user_agent=None):
+  return Referrer(raw_url, user_agent=user_agent).parse

@@ -352,3 +352,77 @@ def test_search_google_pagead():
     'google_search_type': 'Google AdWords Referrer',
   }
   assert_equals(expected_referrer, referrer)
+
+
+def test_blank_referrer_with_user_agent_is_enchanced_by_user_agent():
+  user_agent_from_twitter = 'Mozilla/5.0 (iPhone; CPU iPhone OS 7_0_4 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Mobile/11B554a Twitter for iPhone'
+  blank_referrer_with_twitter_ua = Referrer.parse('', user_agent=user_agent_from_twitter)
+  expected_referrer = {
+    'type': Referrer.Types.SOCIAL,
+    'url': 'twitter://twitter.com',
+    'subdomain': '',
+    'domain': 'twitter',
+    'label': 'Twitter',
+    'tld': 'com',
+    'path': '',
+    'query': '',
+    'google_search_type': 'Not Google Search'
+  }
+  assert_equals(expected_referrer, blank_referrer_with_twitter_ua)
+
+def test_twitter_user_agent_gives_the_same_info_as_twitter_url_except_for_url():
+  user_agent_from_twitter = 'Mozilla/5.0 (iPhone; CPU iPhone OS 7_0_4 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Mobile/11B554a Twitter for iPhone'
+
+  referrer_with_url = Referrer.parse('https://twitter.com')
+  referrer_with_ua = Referrer.parse('', user_agent=user_agent_from_twitter)
+  del referrer_with_url['url']
+  del referrer_with_ua['url']
+  assert_equals(referrer_with_ua, referrer_with_url)
+
+
+def test_canonical_user_agent_with_twitter_gives_the_same_info_as_twitter_url_except_for_url():
+  canonical_user_agent_from_twitter = 'Mobile Safari 7.1 using iOS 7.1 on Mobile with Twitter Mobile App'
+
+  referrer_with_url = Referrer.parse('https://twitter.com')
+  referrer_with_ua = Referrer.parse('', user_agent=canonical_user_agent_from_twitter)
+  del referrer_with_url['url']
+  del referrer_with_ua['url']
+  assert_equals(referrer_with_ua, referrer_with_url)
+
+
+def test_providing_both_user_agent_and_url_is_okay():
+  user_agent = 'Mozilla/5.0 (iPad; U; CPU OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Version/4.0.4 Mobile/7B367 Safari/531.21.10'
+
+  referrer_with_url_and_ua = Referrer.parse('https://twitter.com', user_agent=user_agent)
+  expected_referrer = {
+    'type': Referrer.Types.SOCIAL,
+    'url': 'https://twitter.com',
+    'subdomain': '',
+    'domain': 'twitter',
+    'label': 'Twitter',
+    'tld': 'com',
+    'path': '',
+    'query': '',
+    'google_search_type': 'Not Google Search'
+  }
+  assert_equals(expected_referrer, referrer_with_url_and_ua)
+
+
+def test_provided_url_overrides_what_is_present_in_useragent():
+  user_agent_from_pinterest = 'Mozilla/5.0 (iPhone; CPU iPhone OS 7_0_4 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Mobile/11B554a [Pintest/iOS]'
+
+  referrer_with_twitter_url_and_pinterest_ua = Referrer.parse('https://twitter.com', user_agent=user_agent_from_pinterest)
+  expected_referrer = {
+    'type': Referrer.Types.SOCIAL,
+    'url': 'https://twitter.com',
+    'subdomain': '',
+    'domain': 'twitter',
+    'label': 'Twitter',
+    'tld': 'com',
+    'path': '',
+    'query': '',
+    'google_search_type': 'Not Google Search'
+  }
+  assert_equals(expected_referrer, referrer_with_twitter_url_and_pinterest_ua)
+
+
