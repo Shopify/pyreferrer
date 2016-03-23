@@ -84,7 +84,7 @@ class Referrer:
     raw_url = raw_url.strip()
     rules = custom_rules or Referrer.rules
     url = urlparse(raw_url)
-    domain_info =  tldextract.extract(raw_url)
+    domain_info = tldextract.extract(raw_url)
     user_agent_info = Referrer.extract_user_agent_info(user_agent)
 
     referrer = {
