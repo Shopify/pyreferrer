@@ -113,6 +113,7 @@ class Referrer:
         referrer['query'] = Referrer.parse_query_string(url, known_url.get('parameters'))
     elif user_agent_info['registered_domain']:
       known_url = rules.get(user_agent_info['registered_domain'])
+
       if known_url:
         referrer['label'] = known_url['label']
         referrer['type'] = known_url['type']

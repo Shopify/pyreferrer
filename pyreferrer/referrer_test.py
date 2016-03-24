@@ -443,8 +443,8 @@ def test_doesnt_fail_if_empty_referrer_url_and_non_social_ua():
 
 
 def test_ua_isnt_applied_if_url_to_not_blank():
-    user_agent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 7_0_4 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Mobile/11B554a  [Pintest/iOS]'
-    referrer = Referrer.parse('https://www.savealoonie.com', user_agent=user_agent)
+    social_user_agent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 7_0_4 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Mobile/11B554a  [Pintest/iOS]'
+    referrer = Referrer.parse('https://www.savealoonie.com', user_agent=social_user_agent)
     expected_referrer = {
       'type': Referrer.Types.INDIRECT,
       'url': 'https://www.savealoonie.com',
