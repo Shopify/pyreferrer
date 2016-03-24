@@ -408,7 +408,7 @@ def test_providing_both_user_agent_and_url_is_okay():
   assert_equals(expected_referrer, referrer_with_url_and_ua)
 
 
-def test_provided_url_overrides_what_is_present_in_useragent():
+def test_provided_twitter_url_overrides_what_is_present_in_twitter_useragent():
   user_agent_from_pinterest = 'Mozilla/5.0 (iPhone; CPU iPhone OS 7_0_4 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Mobile/11B554a [Pintest/iOS]'
 
   referrer_with_twitter_url_and_pinterest_ua = Referrer.parse('https://twitter.com', user_agent=user_agent_from_pinterest)
@@ -442,3 +442,18 @@ def test_doesnt_fail_if_empty_referrer_url_and_non_social_ua():
     assert_equals(expected_referrer, referrer)
 
 
+def test_ua_isnt_applied_if_url_is_not_blank():
+    social_user_agent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 7_0_4 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Mobile/11B554a  [Pintest/iOS]'
+    referrer = Referrer.parse('https://www.savealoonie.com', user_agent=social_user_agent)
+    expected_referrer = {
+      'type': Referrer.Types.INDIRECT,
+      'url': 'https://www.savealoonie.com',
+      'subdomain': 'www',
+      'domain': 'savealoonie',
+      'label': 'Savealoonie',
+      'tld': 'com',
+      'path': '',
+      'query': '',
+      'google_search_type': 'Not Google Search'
+    }
+    assert_equals(expected_referrer, referrer)

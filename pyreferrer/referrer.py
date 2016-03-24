@@ -58,8 +58,8 @@ class Referrer:
     return query
 
   @staticmethod
-  def is_valid(url, domain_info, user_agent_info):
-    return (url.scheme and domain_info.domain and domain_info.tld) or user_agent_info['url']
+  def is_valid_url(url, domain_info):
+    return url.scheme and domain_info.domain and domain_info.tld
 
   @staticmethod
   def google_search_type(ref_type, label, path):
@@ -100,13 +100,19 @@ class Referrer:
       'query': ''
     }
 
-    if Referrer.is_valid(url, domain_info, user_agent_info):
+    if Referrer.is_valid_url(url, domain_info):
       # First check for an exact match of the url. Then check for a match with different combinations of domain, subdomain and tld
       known_url = rules.get(url.netloc + url.path)\
                   or rules.get(domain_info.registered_domain + url.path)\
                   or rules.get(url.netloc)\
-                  or rules.get(domain_info.registered_domain)\
-                  or rules.get(user_agent_info['registered_domain'])
+                  or rules.get(domain_info.registered_domain)
+      
+      if known_url:
+        referrer['label'] = known_url['label']
+        referrer['type'] = known_url['type']
+        referrer['query'] = Referrer.parse_query_string(url, known_url.get('parameters'))
+    elif user_agent_info['registered_domain']:
+      known_url = rules.get(user_agent_info['registered_domain'])
 
       if known_url:
         referrer['label'] = known_url['label']
