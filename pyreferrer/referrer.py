@@ -126,4 +126,4 @@ class Referrer:
         return referrer
 
 def parse(raw_url, user_agent=None):
-    return Referrer(raw_url, user_agent=user_agent).parse
+    return Referrer().parse(raw_url, user_agent=user_agent)
