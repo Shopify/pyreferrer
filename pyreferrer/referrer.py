@@ -124,6 +124,3 @@ class Referrer:
         referrer['google_search_type'] = Referrer.google_search_type(referrer['type'], referrer['label'], referrer['path'])
 
         return referrer
-
-def parse(raw_url, user_agent=None):
-    return Referrer().parse(raw_url, user_agent=user_agent)
