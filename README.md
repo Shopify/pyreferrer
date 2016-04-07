@@ -72,7 +72,7 @@ print Referrer.parse(referrer, user_agent=user_agent_from_pinterest_app)
 ```
 
 
-### Development
+### Contributing
 
 To contribute, please fork the repository and add the features/data you want. After merging a submitted pull request, we will deploy the package to PyPI. 
 
