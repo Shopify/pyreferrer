@@ -409,8 +409,7 @@ def test_providing_both_user_agent_and_url_is_okay():
 
 
 def test_provided_twitter_url_overrides_what_is_present_in_twitter_useragent():
-    user_agent_from_pinterest = 'Mozilla/5.0 (iPhone; CPU iPhone OS 7_0_4 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Mobile/11B554a [Pintest/iOS]'
-
+    user_agent_from_pinterest = 'Mozilla/5.0 (iPhone; CPU iPhone OS 7_0_4 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Mobile/11B554a [Pinterest/iOS]'
     referrer_with_twitter_url_and_pinterest_ua = Referrer.parse('https://twitter.com', user_agent=user_agent_from_pinterest)
     expected_referrer = {
         'type': Referrer.Types.SOCIAL,
