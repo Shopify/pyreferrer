@@ -1,7 +1,7 @@
 pyreferrer
 ==========
 
-A Python package that analyzes and classifies different kinds of referrer URLs (search, social, ...). 
+`pyreferrer` is a Python package that analyzes and classifies different kinds of referrer URLs (search, social, ...). The Shopify Data Team uses it in production by passing web traffic referrerals through the library. This powers our logic behind how we can slice and dice website traffic. 
 
 ### Installing
 
