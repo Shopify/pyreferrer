@@ -456,3 +456,18 @@ def test_ua_isnt_applied_if_url_is_not_blank():
             'google_search_type': 'Not Google Search'
         }
         assert_equals(expected_referrer, referrer)
+
+def test_url_contains_null_char_and_starts_with_number():
+        referrer = Referrer.parse('1foo\x00')
+        expected_referrer = {
+            'type': Referrer.Types.INVALID,
+            'url': '1foo',
+            'subdomain': '',
+            'domain': '1foo',
+            'label': '1Foo',
+            'tld': '',
+            'path': '1foo',
+            'query': '',
+            'google_search_type': 'Not Google Search'
+        }
+        assert_equals(expected_referrer, referrer)
