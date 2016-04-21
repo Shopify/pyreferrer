@@ -425,49 +425,49 @@ def test_provided_twitter_url_overrides_what_is_present_in_twitter_useragent():
     assert_equals(expected_referrer, referrer_with_twitter_url_and_pinterest_ua)
 
 def test_doesnt_fail_if_empty_referrer_url_and_non_social_ua():
-        user_agent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 7_0_4 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Mobile/11B554a'
-        referrer = Referrer.parse('', user_agent=user_agent)
-        expected_referrer = {
-            'type': Referrer.Types.DIRECT,
-            'url': '',
-            'subdomain': '',
-            'domain': '',
-            'label': '',
-            'tld': '',
-            'path': '',
-            'query': '',
-            'google_search_type': 'Not Google Search'
-        }
-        assert_equals(expected_referrer, referrer)
+    user_agent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 7_0_4 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Mobile/11B554a'
+    referrer = Referrer.parse('', user_agent=user_agent)
+    expected_referrer = {
+        'type': Referrer.Types.DIRECT,
+        'url': '',
+        'subdomain': '',
+        'domain': '',
+        'label': '',
+        'tld': '',
+        'path': '',
+        'query': '',
+        'google_search_type': 'Not Google Search'
+    }
+    assert_equals(expected_referrer, referrer)
 
 
 def test_ua_isnt_applied_if_url_is_not_blank():
-        social_user_agent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 7_0_4 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Mobile/11B554a  [Pintest/iOS]'
-        referrer = Referrer.parse('https://www.savealoonie.com', user_agent=social_user_agent)
-        expected_referrer = {
-            'type': Referrer.Types.INDIRECT,
-            'url': 'https://www.savealoonie.com',
-            'subdomain': 'www',
-            'domain': 'savealoonie',
-            'label': 'Savealoonie',
-            'tld': 'com',
-            'path': '',
-            'query': '',
-            'google_search_type': 'Not Google Search'
-        }
-        assert_equals(expected_referrer, referrer)
+    social_user_agent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 7_0_4 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Mobile/11B554a  [Pintest/iOS]'
+    referrer = Referrer.parse('https://www.savealoonie.com', user_agent=social_user_agent)
+    expected_referrer = {
+        'type': Referrer.Types.INDIRECT,
+        'url': 'https://www.savealoonie.com',
+        'subdomain': 'www',
+        'domain': 'savealoonie',
+        'label': 'Savealoonie',
+        'tld': 'com',
+        'path': '',
+        'query': '',
+        'google_search_type': 'Not Google Search'
+    }
+    assert_equals(expected_referrer, referrer)
 
-def test_url_contains_null_char_and_starts_with_number():
-        referrer = Referrer.parse('1foo\x00')
-        expected_referrer = {
-            'type': Referrer.Types.INVALID,
-            'url': '1foo',
-            'subdomain': '',
-            'domain': '1foo',
-            'label': '1Foo',
-            'tld': '',
-            'path': '1foo',
-            'query': '',
-            'google_search_type': 'Not Google Search'
-        }
-        assert_equals(expected_referrer, referrer)
+def test_pyreferrer_works_with_unicode_urls():
+    referrer = Referrer.parse(u'http://президент.рф/')
+    expected_referrer = {
+        'domain': u'президент',
+        'query': u'', 
+        'tld': u'рф', 
+        'url': u'http://президент.рф/', 
+        'path': u'/', 
+        'subdomain': u'', 
+        'type': u'indirect', 
+        'google_search_type': u'Not Google Search', 
+        'label': u'Президент'
+    }
+    assert_equals(referrer, expected_referrer)
