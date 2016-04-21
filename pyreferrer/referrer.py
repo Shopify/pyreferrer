@@ -83,7 +83,7 @@ class Referrer:
     def parse(raw_url, custom_rules=None, user_agent=None):
         if raw_url is None and user_agent is None:
             return Referrer.BLANK_REFERRER
-        raw_url = raw_url.strip().decode("utf-8").replace('\x00', '').encode("utf-8")
+        raw_url = raw_url.strip()
         rules = custom_rules or Referrer.rules
         url = urlparse(raw_url)
         domain_info = tldextract.extract(raw_url)
