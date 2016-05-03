@@ -14,7 +14,6 @@ def test_parse_splits_the_url_into_its_components():
         'tld': 'co.uk',
         'path': '/party/time',
         'query': '',
-        'google_search_type': 'Not Google Search'
     }
     assert_equals(expected_referrer, referrer)
 
@@ -30,7 +29,6 @@ def test_blank_referrer_is_classified_as_direct():
         'tld': '',
         'path': '',
         'query': '',
-        'google_search_type': 'Not Google Search'
     }
     assert_equals(expected_referrer, blank_referrer)
     assert_equals(expected_referrer, whitespace_referrer)
@@ -91,7 +89,6 @@ def test_email_simple():
         'tld': 'com',
         'path': '/9aifaufasodf8usafd',
         'query': '',
-        'google_search_type': 'Not Google Search'
     }
     assert_equals(expected_referrer, referrer)
 
@@ -106,7 +103,6 @@ def test_social_simple():
         'tld': 'com',
         'path': '/snormore/status/391149968360103936',
         'query': '',
-        'google_search_type': 'Not Google Search'
     }
     assert_equals(expected_referrer, referrer)
 
@@ -121,7 +117,6 @@ def test_social_with_subdomain():
         'tld': 'com',
         'path': '',
         'query': '',
-        'google_search_type': 'Not Google Search'
     }
     assert_equals(expected_referrer, referrer)
 
@@ -137,7 +132,6 @@ def test_social_google_plus():
         'tld': 'com',
         'path': '/url',
         'query': '',
-        'google_search_type': 'Not Google Search'
     }
     assert_equals(expected_referrer, referrer)
 
@@ -152,7 +146,6 @@ def test_search_simple():
         'tld': 'com',
         'path': '/search',
         'query': 'hello',
-        'google_search_type': 'Not Google Search'
     }
     assert_equals(expected_referrer, referrer)
 
@@ -167,7 +160,6 @@ def test_search_with_query_in_fragment():
         'tld': 'com',
         'path': '/search',
         'query': 'hello',
-        'google_search_type': 'Not Google Search'
     }
     assert_equals(expected_referrer, referrer)
 
@@ -182,7 +174,6 @@ def test_search_with_yahoo_country():
         'tld': 'com',
         'path': '/search',
         'query': 'hello',
-        'google_search_type': 'Not Google Search'
     }
     assert_equals(expected_referrer, referrer)
 
@@ -197,7 +188,6 @@ def test_search_with_yahoo_country_and_query_in_fragment():
         'tld': 'com',
         'path': '/search',
         'query': 'hello',
-        'google_search_type': 'Not Google Search'
     }
     assert_equals(expected_referrer, referrer)
 
@@ -212,7 +202,6 @@ def test_search_bing_not_live():
         'tld': 'com',
         'path': '/',
         'query': 'blargh',
-        'google_search_type': 'Not Google Search'
     }
     assert_equals(expected_referrer, referrer)
 
@@ -228,7 +217,6 @@ def test_search_non_ascii():
         'tld': 'com',
         'path': '/search',
         'query': 'vinduespudsning myshopify rengøring mkobetic',
-        'google_search_type': 'Not Google Search'
     }
     assert_equals(expected_referrer, referrer)
 
@@ -244,7 +232,6 @@ def test_search_with_cyrillics():
         'tld': 'com',
         'path': '/yandsearch',
         'query': 'ботинки packer-shoes',
-        'google_search_type': 'Not Google Search'
     }
     assert_equals(expected_referrer, referrer)
 
@@ -259,7 +246,6 @@ def test_search_with_explicit_plus():
         'tld': 'com',
         'path': '/search',
         'query': 'vinduespudsning JOKAPOLAR "11 + 11" mkobetic',
-        'google_search_type': 'Not Google Search'
     }
     assert_equals(expected_referrer, referrer)
 
@@ -274,7 +260,6 @@ def test_search_with_empty_query():
         'tld': 'com',
         'path': '',
         'query': '',
-        'google_search_type': 'Not Google Search'
     }
     assert_equals(expected_referrer, referrer)
 
@@ -289,7 +274,6 @@ def test_search_google_https_with_no_params():
         'tld': 'com',
         'path': '',
         'query': '',
-        'google_search_type': 'Organic Google Search'
     }
     assert_equals(expected_referrer, referrer)
 
@@ -304,7 +288,6 @@ def test_search_google_with_query():
         'tld': 'co.in',
         'path': '/url',
         'query': 'test',
-        'google_search_type': 'Organic Google Search'
     }
     assert_equals(expected_referrer, referrer)
 
@@ -319,22 +302,6 @@ def test_search_google_image():
         'tld': 'ca',
         'path': '/imgres',
         'query': 'tbn:ANd9GcRXBkHjJiAvKXkjGzSEhilZS5vJX0UPFmyZTlmmRFpiv-IYQmj4',
-        'google_search_type': 'Organic Google Search'
-    }
-    assert_equals(expected_referrer, referrer)
-
-def test_search_google_adwords():
-    referrer = Referrer.parse('http://www.google.ca/aclk?sa=l&ai=Cp3RJ8ri&sig=AOD64f7w&clui=0&rct=j&q=&ved=0CBoQDEA&adurl=http://www.domain.com/')
-    expected_referrer = {
-        'type': Referrer.Types.SEARCH,
-        'label': 'Google',
-        'url': 'http://www.google.ca/aclk?sa=l&ai=Cp3RJ8ri&sig=AOD64f7w&clui=0&rct=j&q=&ved=0CBoQDEA&adurl=http://www.domain.com/',
-        'domain': 'google',
-        'subdomain': 'www',
-        'tld': 'ca',
-        'path': '/aclk',
-        'query': '',
-        'google_search_type': 'Google AdWords Referrer',
     }
     assert_equals(expected_referrer, referrer)
 
@@ -349,7 +316,6 @@ def test_search_google_pagead():
         'tld': 'com',
         'path': '/pagead/aclk',
         'query': 'flowers',
-        'google_search_type': 'Google AdWords Referrer',
     }
     assert_equals(expected_referrer, referrer)
 
@@ -366,7 +332,6 @@ def test_blank_referrer_with_user_agent_is_enchanced_by_user_agent():
         'tld': 'com',
         'path': '',
         'query': '',
-        'google_search_type': 'Not Google Search'
     }
     assert_equals(expected_referrer, blank_referrer_with_twitter_ua)
 
@@ -403,7 +368,6 @@ def test_providing_both_user_agent_and_url_is_okay():
         'tld': 'com',
         'path': '',
         'query': '',
-        'google_search_type': 'Not Google Search'
     }
     assert_equals(expected_referrer, referrer_with_url_and_ua)
 
@@ -420,7 +384,6 @@ def test_provided_twitter_url_overrides_what_is_present_in_twitter_useragent():
         'tld': 'com',
         'path': '',
         'query': '',
-        'google_search_type': 'Not Google Search'
     }
     assert_equals(expected_referrer, referrer_with_twitter_url_and_pinterest_ua)
 
@@ -436,7 +399,6 @@ def test_doesnt_fail_if_empty_referrer_url_and_non_social_ua():
         'tld': '',
         'path': '',
         'query': '',
-        'google_search_type': 'Not Google Search'
     }
     assert_equals(expected_referrer, referrer)
 
@@ -453,7 +415,6 @@ def test_ua_isnt_applied_if_url_is_not_blank():
         'tld': 'com',
         'path': '',
         'query': '',
-        'google_search_type': 'Not Google Search'
     }
     assert_equals(expected_referrer, referrer)
 
@@ -467,7 +428,6 @@ def test_pyreferrer_works_with_unicode_urls():
         'path': u'/', 
         'subdomain': u'', 
         'type': u'indirect', 
-        'google_search_type': u'Not Google Search', 
         'label': u'Президент'
     }
     assert_equals(referrer, expected_referrer)
