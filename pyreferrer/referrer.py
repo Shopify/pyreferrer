@@ -59,7 +59,7 @@ class Referrer:
 
     @staticmethod
     def is_valid_url(url, domain_info):
-        return url.scheme and domain_info.domain and domain_info.tld
+        return url.scheme and domain_info.domain and domain_info.suffix
 
     @staticmethod
     def google_search_type(ref_type, label, path):
