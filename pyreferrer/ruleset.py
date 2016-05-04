@@ -1,6 +1,7 @@
 from pkg_resources import resource_filename
 import json
 
+
 class Ruleset:
     def __init__(self, data_path='data/referrers.json'):
         self.data_path = data_path
