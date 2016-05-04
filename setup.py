@@ -9,6 +9,6 @@ setup(name='pyreferrer',
       license='MIT',
       packages=['pyreferrer'],
       package_data={'pyreferrer': ['data/*', ]},
-      install_requires=['tldextract==1.7.1'],
+      install_requires=['tldextract==2.0.1'],
       include_package_data=True,
       zip_safe=False)
