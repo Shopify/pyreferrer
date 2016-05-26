@@ -1,29 +1,29 @@
 from __future__ import unicode_literals
 from .ruleset import Ruleset
-import json
 import tldextract
 
 try:
-    #Python2
+    # Python2
     from urlparse import urlparse, parse_qs
 except ImportError:
-    #Python3
+    # Python3
     from urllib.parse import urlparse, parse_qs
+
 
 class Referrer:
 
     class Types:
-        INVALID  = 'invalid'
+        INVALID = 'invalid'
         INDIRECT = 'indirect'
-        DIRECT   = 'direct'
-        SEARCH   = 'search'
-        SOCIAL   = 'social'
-        EMAIL    = 'email'
+        DIRECT = 'direct'
+        SEARCH = 'search'
+        SOCIAL = 'social'
+        EMAIL = 'email'
 
     USER_AGENT_SUBSTRINGS = [
-            (['Twitter'],          {'tld': 'com', 'domain': 'twitter', 'url': 'twitter://twitter.com', 'registered_domain': 'twitter.com'}),
-            (['Pinterest'],        {'tld': 'com', 'domain': 'pinterest', 'url': 'pinterest://pinterest.com', 'registered_domain': 'pinterest.com'}),
-            (['FBAV', 'Facebook'], {'tld': 'com', 'domain': 'facebook', 'url': 'facebook://facebook.com', 'registered_domain': 'facebook.com'}),
+        (['Twitter'], {'tld': 'com', 'domain': 'twitter', 'url': 'twitter://twitter.com', 'registered_domain': 'twitter.com'}),
+        (['Pinterest'], {'tld': 'com', 'domain': 'pinterest', 'url': 'pinterest://pinterest.com', 'registered_domain': 'pinterest.com'}),
+        (['FBAV', 'Facebook'], {'tld': 'com', 'domain': 'facebook', 'url': 'facebook://facebook.com', 'registered_domain': 'facebook.com'}),
     ]
 
     BLANK_REFERRER = {
@@ -59,7 +59,7 @@ class Referrer:
 
     @staticmethod
     def is_valid_url(url, domain_info):
-        return url.scheme and domain_info.domain and domain_info.tld
+        return url.scheme and domain_info.domain and domain_info.suffix
 
     @staticmethod
     def google_search_type(ref_type, label, path):
@@ -68,10 +68,9 @@ class Referrer:
         else:
             return 'Not Google Search'
 
-
     @staticmethod
     def extract_user_agent_info(user_agent):
-            empty_info =  {'domain': '', 'url': '', 'tld': '', 'registered_domain': ''}
+            empty_info = {'domain': '', 'url': '', 'tld': '', 'registered_domain': ''}
             if user_agent is None:
                     return empty_info
             for substrings, domain_info in Referrer.USER_AGENT_SUBSTRINGS:
@@ -102,11 +101,11 @@ class Referrer:
 
         if Referrer.is_valid_url(url, domain_info):
             # First check for an exact match of the url. Then check for a match with different combinations of domain, subdomain and tld
-            known_url = rules.get(url.netloc + url.path)\
-                                    or rules.get(domain_info.registered_domain + url.path)\
-                                    or rules.get(url.netloc)\
-                                    or rules.get(domain_info.registered_domain)
-            
+            known_url = rules.get(url.netloc + url.path) \
+                or rules.get(domain_info.registered_domain + url.path) \
+                or rules.get(url.netloc) \
+                or rules.get(domain_info.registered_domain)
+
             if known_url:
                 referrer['label'] = known_url['label']
                 referrer['type'] = known_url['type']

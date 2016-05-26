@@ -1,7 +1,8 @@
 # coding=utf-8
 from __future__ import absolute_import
-from .referrer import *
+from .referrer import Referrer
 from nose.tools import assert_equals
+
 
 def test_parse_splits_the_url_into_its_components():
     referrer = Referrer.parse('http://mysubdomain.myothersubdomain.supersite.co.uk/party/time?q=ohyeah&t=555')
@@ -17,6 +18,7 @@ def test_parse_splits_the_url_into_its_components():
         'google_search_type': 'Not Google Search'
     }
     assert_equals(expected_referrer, referrer)
+
 
 def test_blank_referrer_is_classified_as_direct():
     blank_referrer = Referrer.parse('')
@@ -35,50 +37,59 @@ def test_blank_referrer_is_classified_as_direct():
     assert_equals(expected_referrer, blank_referrer)
     assert_equals(expected_referrer, whitespace_referrer)
 
+
 def test_a_url_that_does_not_match_any_known_urls_is_classified_as_indirect():
     referrer = Referrer.parse('http://walrus.com/')
     assert_equals(Referrer.Types.INDIRECT, referrer['type'])
+
 
 def test_a_url_that_does_not_match_any_known_urls_has_its_label_set_as_the_capitalized_domain():
     referrer = Referrer.parse('http://walrus.com/')
     assert_equals('Walrus', referrer['label'])
 
+
 def test_an_invalid_url_or_absolute_url_is_classified_as_invalid():
     urls = [
-            'blap',
-            'blap blap',
-            'http://blapblap',
-            'http://.com',
-            'http://',
-            '/',
-        ]
+        'blap',
+        'blap blap',
+        'http://blapblap',
+        'http://.com',
+        'http://',
+        '/',
+    ]
     for url in urls:
         referrer = Referrer.parse(url)
         assert_equals(Referrer.Types.INVALID, referrer['type'])
 
+
 def test_parse_with_nonetype_passed_in_is_invalid():
     referrer = Referrer.parse(None)
     assert_equals(Referrer.Types.INVALID, referrer['type'])
+
 
 def test_parse_tries_to_match_a_known_url_using_everything_but_the_query_string():
     rules = {"www.zambo.com/search": {"type": "search", "label": "Zambo"}}
     referrer = Referrer.parse("http://www.zambo.com/search?q=hello!", rules)
     assert_equals('search', referrer['type'])
 
+
 def test_parse_tries_to_match_a_known_url_using_the_domain_and_tld_and_path():
     rules = {"zambo.com/search": {"type": "search", "label": "Zambo"}}
     referrer = Referrer.parse("http://www.zambo.com/search?q=hello!", rules)
     assert_equals('search', referrer['type'])
+
 
 def test_parse_tries_to_match_a_known_url_using_the_subdomains_domain_and_tld():
     rules = {"www.zambo.com": {"type": "search", "label": "Zambo"}}
     referrer = Referrer.parse("http://www.zambo.com/search?q=hello!", rules)
     assert_equals('search', referrer['type'])
 
+
 def test_parse_tries_to_match_a_known_url_using_the_domain_and_tld():
     rules = {"zambo.com": {"type": "search", "label": "Zambo"}}
     referrer = Referrer.parse("http://www.zambo.com/search?q=hello!", rules)
     assert_equals('search', referrer['type'])
+
 
 def test_email_simple():
     referrer = Referrer.parse('https://mail.google.com/9aifaufasodf8usafd')
@@ -95,6 +106,7 @@ def test_email_simple():
     }
     assert_equals(expected_referrer, referrer)
 
+
 def test_social_simple():
     referrer = Referrer.parse('https://twitter.com/snormore/status/391149968360103936')
     expected_referrer = {
@@ -109,6 +121,7 @@ def test_social_simple():
         'google_search_type': 'Not Google Search'
     }
     assert_equals(expected_referrer, referrer)
+
 
 def test_social_with_subdomain():
     referrer = Referrer.parse('https://puppyanimalbarn.tumblr.com')
@@ -141,6 +154,7 @@ def test_social_google_plus():
     }
     assert_equals(expected_referrer, referrer)
 
+
 def test_search_simple():
     referrer = Referrer.parse('http://search.yahoo.com/search?p=hello')
     expected_referrer = {
@@ -155,6 +169,7 @@ def test_search_simple():
         'google_search_type': 'Not Google Search'
     }
     assert_equals(expected_referrer, referrer)
+
 
 def test_search_with_query_in_fragment():
     referrer = Referrer.parse('http://search.yahoo.com/search#p=hello')
@@ -171,6 +186,7 @@ def test_search_with_query_in_fragment():
     }
     assert_equals(expected_referrer, referrer)
 
+
 def test_search_with_yahoo_country():
     referrer = Referrer.parse('http://ca.search.yahoo.com/search?p=hello')
     expected_referrer = {
@@ -185,6 +201,7 @@ def test_search_with_yahoo_country():
         'google_search_type': 'Not Google Search'
     }
     assert_equals(expected_referrer, referrer)
+
 
 def test_search_with_yahoo_country_and_query_in_fragment():
     referrer = Referrer.parse('http://ca.search.yahoo.com/search#p=hello')
@@ -201,6 +218,7 @@ def test_search_with_yahoo_country_and_query_in_fragment():
     }
     assert_equals(expected_referrer, referrer)
 
+
 def test_search_bing_not_live():
     referrer = Referrer.parse('http://bing.com/?q=blargh')
     expected_referrer = {
@@ -215,6 +233,7 @@ def test_search_bing_not_live():
         'google_search_type': 'Not Google Search'
     }
     assert_equals(expected_referrer, referrer)
+
 
 def test_search_non_ascii():
     assert_equals.__self__.maxDiff = None
@@ -232,6 +251,7 @@ def test_search_non_ascii():
     }
     assert_equals(expected_referrer, referrer)
 
+
 def test_search_with_cyrillics():
     assert_equals.__self__.maxDiff = None
     referrer = Referrer.parse('http://www.yandex.com/yandsearch?text=%D0%B1%D0%BE%D1%82%D0%B8%D0%BD%D0%BA%D0%B8%20packer-shoes&lr=87&msid=22868.18811.1382712652.60127&noreask=1')
@@ -248,6 +268,7 @@ def test_search_with_cyrillics():
     }
     assert_equals(expected_referrer, referrer)
 
+
 def test_search_with_explicit_plus():
     referrer = Referrer.parse('http://search.yahoo.com/search;_ylt=A0geu8nVvm5StDIAIxHrFAx.;_ylc=X1MDMjExNDcyMTAwMwRfcgMyBGJjawMwbXFjc3RoOHYybjlkJTI2YiUzRDMlMjZzJTNEYWkEY3NyY3B2aWQDSjNTOW9rZ2V1eVVMYVp6c1VmRmRMUkdDMkxfbjJsSnV2dFVBQmZyWgRmcgN5ZnAtdC03MTUEZnIyA3NiLXRvcARncHJpZANDc01MSGlnTVFOS2k2cDRqcUxERzRBBG10ZXN0aWQDbnVsbARuX3JzbHQDMARuX3N1Z2cDMARvcmlnaW4DY2Euc2VhcmNoLnlhaG9vLmNvbQRwb3MDMARwcXN0cgMEcHFzdHJsAwRxc3RybAM0NARxdWVyeQN2aW5kdWVzcHVkc25pbmcgSk9LQVBPTEFSICIxMSArIDExIiBta29iZXRpYwR0X3N0bXADMTM4Mjk4OTYwMjg3OQR2dGVzdGlkA01TWUNBQzE-?p=vinduespudsning+JOKAPOLAR+"11+%2B+11"+mkobetic&fr2=sb-top&fr=yfp-t-715&rd=r1')
     expected_referrer = {
@@ -262,6 +283,7 @@ def test_search_with_explicit_plus():
         'google_search_type': 'Not Google Search'
     }
     assert_equals(expected_referrer, referrer)
+
 
 def test_search_with_empty_query():
     referrer = Referrer.parse('https://yahoo.com?p=&sa=t&rct=j&p=&esrc=s&source=web&cd=1&ved=0CDkQFjAA&url=http%3A%2F%2Fwww.yellowfashion.in%2F&ei=aZCPUtXmLcGQrQepkIHACA&usg=AFQjCNE-R5-7CENi9oqYe4vG-0g0E7nCSQ&bvm=bv.56988011,d.bmk')
@@ -278,6 +300,7 @@ def test_search_with_empty_query():
     }
     assert_equals(expected_referrer, referrer)
 
+
 def test_search_google_https_with_no_params():
     referrer = Referrer.parse('https://google.com')
     expected_referrer = {
@@ -292,6 +315,7 @@ def test_search_google_https_with_no_params():
         'google_search_type': 'Organic Google Search'
     }
     assert_equals(expected_referrer, referrer)
+
 
 def test_search_google_with_query():
     referrer = Referrer.parse('https://www.google.co.in/url?sa=t&rct=j&q=test&esrc=s&source=web&cd=1&ved=0CDkQFjAA&url=http%3A%2F%2Fwww.yellowfashion.in%2F&ei=aZCPUtXmLcGQrQepkIHACA&usg=AFQjCNE-R5-7CENi9oqYe4vG-0g0E7nCSQ&bvm=bv.56988011,d.bmk')
@@ -308,6 +332,7 @@ def test_search_google_with_query():
     }
     assert_equals(expected_referrer, referrer)
 
+
 def test_search_google_image():
     referrer = Referrer.parse('https://www.google.ca/imgres?q=tbn:ANd9GcRXBkHjJiAvKXkjGzSEhilZS5vJX0UPFmyZTlmmRFpiv-IYQmj4')
     expected_referrer = {
@@ -323,6 +348,7 @@ def test_search_google_image():
     }
     assert_equals(expected_referrer, referrer)
 
+
 def test_search_google_adwords():
     referrer = Referrer.parse('http://www.google.ca/aclk?sa=l&ai=Cp3RJ8ri&sig=AOD64f7w&clui=0&rct=j&q=&ved=0CBoQDEA&adurl=http://www.domain.com/')
     expected_referrer = {
@@ -337,6 +363,7 @@ def test_search_google_adwords():
         'google_search_type': 'Google AdWords Referrer',
     }
     assert_equals(expected_referrer, referrer)
+
 
 def test_search_google_pagead():
     referrer = Referrer.parse('http://www.googleadservices.com/pagead/aclk?sa=l&q=flowers&ohost=www.google.com')
@@ -369,6 +396,7 @@ def test_blank_referrer_with_user_agent_is_enchanced_by_user_agent():
         'google_search_type': 'Not Google Search'
     }
     assert_equals(expected_referrer, blank_referrer_with_twitter_ua)
+
 
 def test_twitter_user_agent_gives_the_same_info_as_twitter_url_except_for_url():
     user_agent_from_twitter = 'Mozilla/5.0 (iPhone; CPU iPhone OS 7_0_4 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Mobile/11B554a Twitter for iPhone'
@@ -424,6 +452,7 @@ def test_provided_twitter_url_overrides_what_is_present_in_twitter_useragent():
     }
     assert_equals(expected_referrer, referrer_with_twitter_url_and_pinterest_ua)
 
+
 def test_doesnt_fail_if_empty_referrer_url_and_non_social_ua():
     user_agent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 7_0_4 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Mobile/11B554a'
     referrer = Referrer.parse('', user_agent=user_agent)
@@ -457,17 +486,18 @@ def test_ua_isnt_applied_if_url_is_not_blank():
     }
     assert_equals(expected_referrer, referrer)
 
+
 def test_pyreferrer_works_with_unicode_urls():
     referrer = Referrer.parse(u'http://президент.рф/')
     expected_referrer = {
         'domain': u'президент',
-        'query': u'', 
-        'tld': u'рф', 
-        'url': u'http://президент.рф/', 
-        'path': u'/', 
-        'subdomain': u'', 
-        'type': u'indirect', 
-        'google_search_type': u'Not Google Search', 
+        'query': u'',
+        'tld': u'рф',
+        'url': u'http://президент.рф/',
+        'path': u'/',
+        'subdomain': u'',
+        'type': u'indirect',
+        'google_search_type': u'Not Google Search',
         'label': u'Президент'
     }
     assert_equals(referrer, expected_referrer)
