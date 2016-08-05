@@ -10,5 +10,16 @@ setup(name='pyreferrer',
       packages=['pyreferrer'],
       package_data={'pyreferrer': ['data/*', ]},
       install_requires=['tldextract==2.0.1'],
+      extras_require={
+          'test': ['nose'],
+      },
+      classifiers=[
+        "License :: OSI Approved :: MIT License",
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3.3",
+        "Programming Language :: Python :: 3.4",
+        "Programming Language :: Python :: 3.5",
+      ],
       include_package_data=True,
       zip_safe=False)
