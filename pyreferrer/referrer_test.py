@@ -1,5 +1,6 @@
 # coding=utf-8
 from __future__ import absolute_import
+from __future__ import unicode_literals
 from pyreferrer.referrer import Referrer
 from nose.tools import assert_equals
 
