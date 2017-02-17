@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
-from .ruleset import Ruleset
+from __future__ import absolute_import
+from pyreferrer.ruleset import Ruleset
 import tldextract
 
 try:
