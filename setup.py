@@ -1,7 +1,7 @@
 from distutils.core import setup
 
 setup(name='pyreferrer',
-      version='0.4.0',
+      version='0.4.1',
       description='A referrer parser for Python.',
       url='http://github.com/Shopify/pyreferrer',
       author='Shopify Data Acceleration',
@@ -9,7 +9,7 @@ setup(name='pyreferrer',
       license='MIT',
       packages=['pyreferrer'],
       package_data={'pyreferrer': ['data/*', ]},
-      install_requires=['tldextract==2.0.1'],
+      install_requires=['tldextract==2.0.2'],
       extras_require={
           'test': ['nose'],
       },
