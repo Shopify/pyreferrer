@@ -23,7 +23,8 @@ class Referrer:
     USER_AGENT_SUBSTRINGS = [
         (['Twitter'], {'tld': 'com', 'domain': 'twitter', 'url': 'twitter://twitter.com', 'registered_domain': 'twitter.com'}),
         (['Pinterest'], {'tld': 'com', 'domain': 'pinterest', 'url': 'pinterest://pinterest.com', 'registered_domain': 'pinterest.com'}),
-        (['FBAV', 'Facebook'], {'tld': 'com', 'domain': 'facebook', 'url': 'facebook://facebook.com', 'registered_domain': 'facebook.com'}),
+        (['FBAV', 'Facebook', 'FBAN', 'FB_IAB'], {'tld': 'com', 'domain': 'facebook', 'url': 'facebook://facebook.com', 'registered_domain': 'facebook.com'}),
+        (['Instagram'], {'tld': 'com', 'domain': 'instagram', 'url': 'instagram://instagram.com', 'registered_domain': 'instagram.com'}),
     ]
 
     BLANK_REFERRER = {
