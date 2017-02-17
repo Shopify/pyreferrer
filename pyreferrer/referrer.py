@@ -63,13 +63,6 @@ class Referrer:
         return url.scheme and domain_info.domain and domain_info.suffix
 
     @staticmethod
-    def google_search_type(ref_type, label, path):
-        if ref_type == Referrer.Types.SEARCH and 'Google' in label:
-            return 'Google AdWords Referrer' if path.startswith('/aclk') or path.startswith('/pagead/aclk') else 'Organic Google Search'
-        else:
-            return 'Not Google Search'
-
-    @staticmethod
     def extract_user_agent_info(user_agent):
             empty_info = {'domain': '', 'url': '', 'tld': '', 'registered_domain': ''}
             if user_agent is None:
@@ -120,7 +113,4 @@ class Referrer:
                 referrer['query'] = Referrer.parse_query_string(url, known_url.get('parameters'))
         else:
             referrer['type'] = Referrer.Types.INVALID if raw_url else Referrer.Types.DIRECT
-
-        referrer['google_search_type'] = Referrer.google_search_type(referrer['type'], referrer['label'], referrer['path'])
-
         return referrer
