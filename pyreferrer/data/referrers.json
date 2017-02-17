@@ -3806,7 +3806,8 @@
         },
         "Instagram": {
             "domains": [
-                "instagram.com"
+                "instagram.com",
+                "l.instagram.com"
             ]
         },
         "Last.fm": {
