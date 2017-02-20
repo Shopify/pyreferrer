@@ -15,8 +15,7 @@ def test_parse_splits_the_url_into_its_components():
         'label': 'Supersite',
         'tld': 'co.uk',
         'path': '/party/time',
-        'query': '',
-        'google_search_type': 'Not Google Search'
+        'query': ''
     }
     assert_equals(expected_referrer, referrer)
 
@@ -32,8 +31,7 @@ def test_blank_referrer_is_classified_as_direct():
         'label': '',
         'tld': '',
         'path': '',
-        'query': '',
-        'google_search_type': 'Not Google Search'
+        'query': ''
     }
     assert_equals(expected_referrer, blank_referrer)
     assert_equals(expected_referrer, whitespace_referrer)
@@ -102,8 +100,7 @@ def test_email_simple():
         'domain': 'google',
         'tld': 'com',
         'path': '/9aifaufasodf8usafd',
-        'query': '',
-        'google_search_type': 'Not Google Search'
+        'query': ''
     }
     assert_equals(expected_referrer, referrer)
 
@@ -118,8 +115,7 @@ def test_social_simple():
         'subdomain': '',
         'tld': 'com',
         'path': '/snormore/status/391149968360103936',
-        'query': '',
-        'google_search_type': 'Not Google Search'
+        'query': ''
     }
     assert_equals(expected_referrer, referrer)
 
@@ -134,8 +130,7 @@ def test_social_with_subdomain():
         'subdomain': 'puppyanimalbarn',
         'tld': 'com',
         'path': '',
-        'query': '',
-        'google_search_type': 'Not Google Search'
+        'query': ''
     }
     assert_equals(expected_referrer, referrer)
 
@@ -150,8 +145,7 @@ def test_social_google_plus():
         'subdomain': 'plus.url',
         'tld': 'com',
         'path': '/url',
-        'query': '',
-        'google_search_type': 'Not Google Search'
+        'query': ''
     }
     assert_equals(expected_referrer, referrer)
 
@@ -166,8 +160,7 @@ def test_search_simple():
         'subdomain': 'search',
         'tld': 'com',
         'path': '/search',
-        'query': 'hello',
-        'google_search_type': 'Not Google Search'
+        'query': 'hello'
     }
     assert_equals(expected_referrer, referrer)
 
@@ -182,8 +175,7 @@ def test_search_with_query_in_fragment():
         'subdomain': 'search',
         'tld': 'com',
         'path': '/search',
-        'query': 'hello',
-        'google_search_type': 'Not Google Search'
+        'query': 'hello'
     }
     assert_equals(expected_referrer, referrer)
 
@@ -198,8 +190,7 @@ def test_search_with_yahoo_country():
         'subdomain': 'ca.search',
         'tld': 'com',
         'path': '/search',
-        'query': 'hello',
-        'google_search_type': 'Not Google Search'
+        'query': 'hello'
     }
     assert_equals(expected_referrer, referrer)
 
@@ -214,8 +205,7 @@ def test_search_with_yahoo_country_and_query_in_fragment():
         'subdomain': 'ca.search',
         'tld': 'com',
         'path': '/search',
-        'query': 'hello',
-        'google_search_type': 'Not Google Search'
+        'query': 'hello'
     }
     assert_equals(expected_referrer, referrer)
 
@@ -230,8 +220,7 @@ def test_search_bing_not_live():
         'subdomain': '',
         'tld': 'com',
         'path': '/',
-        'query': 'blargh',
-        'google_search_type': 'Not Google Search'
+        'query': 'blargh'
     }
     assert_equals(expected_referrer, referrer)
 
@@ -247,8 +236,7 @@ def test_search_non_ascii():
         'subdomain': 'search',
         'tld': 'com',
         'path': '/search',
-        'query': 'vinduespudsning myshopify rengøring mkobetic',
-        'google_search_type': 'Not Google Search'
+        'query': 'vinduespudsning myshopify rengøring mkobetic'
     }
     assert_equals(expected_referrer, referrer)
 
@@ -263,8 +251,7 @@ def test_search_with_explicit_plus():
         'subdomain': 'search',
         'tld': 'com',
         'path': '/search',
-        'query': 'vinduespudsning JOKAPOLAR "11 + 11" mkobetic',
-        'google_search_type': 'Not Google Search'
+        'query': 'vinduespudsning JOKAPOLAR "11 + 11" mkobetic'
     }
     assert_equals(expected_referrer, referrer)
 
@@ -279,8 +266,7 @@ def test_search_with_empty_query():
         'subdomain': '',
         'tld': 'com',
         'path': '',
-        'query': '',
-        'google_search_type': 'Not Google Search'
+        'query': ''
     }
     assert_equals(expected_referrer, referrer)
 
@@ -295,8 +281,7 @@ def test_search_google_https_with_no_params():
         'subdomain': '',
         'tld': 'com',
         'path': '',
-        'query': '',
-        'google_search_type': 'Organic Google Search'
+        'query': ''
     }
     assert_equals(expected_referrer, referrer)
 
@@ -311,8 +296,7 @@ def test_search_google_with_query():
         'subdomain': 'www',
         'tld': 'co.in',
         'path': '/url',
-        'query': 'test',
-        'google_search_type': 'Organic Google Search'
+        'query': 'test'
     }
     assert_equals(expected_referrer, referrer)
 
@@ -327,8 +311,7 @@ def test_search_google_image():
         'subdomain': 'www',
         'tld': 'ca',
         'path': '/imgres',
-        'query': 'tbn:ANd9GcRXBkHjJiAvKXkjGzSEhilZS5vJX0UPFmyZTlmmRFpiv-IYQmj4',
-        'google_search_type': 'Organic Google Search'
+        'query': 'tbn:ANd9GcRXBkHjJiAvKXkjGzSEhilZS5vJX0UPFmyZTlmmRFpiv-IYQmj4'
     }
     assert_equals(expected_referrer, referrer)
 
@@ -343,8 +326,7 @@ def test_search_google_adwords():
         'subdomain': 'www',
         'tld': 'ca',
         'path': '/aclk',
-        'query': '',
-        'google_search_type': 'Google AdWords Referrer',
+        'query': ''
     }
     assert_equals(expected_referrer, referrer)
 
@@ -359,8 +341,7 @@ def test_search_google_pagead():
         'subdomain': 'www',
         'tld': 'com',
         'path': '/pagead/aclk',
-        'query': 'flowers',
-        'google_search_type': 'Google AdWords Referrer',
+        'query': 'flowers'
     }
     assert_equals(expected_referrer, referrer)
 
@@ -376,8 +357,7 @@ def test_blank_referrer_with_user_agent_is_enchanced_by_user_agent():
         'label': 'Twitter',
         'tld': 'com',
         'path': '',
-        'query': '',
-        'google_search_type': 'Not Google Search'
+        'query': ''
     }
     assert_equals(expected_referrer, blank_referrer_with_twitter_ua)
 
@@ -414,8 +394,7 @@ def test_providing_both_user_agent_and_url_is_okay():
         'label': 'Twitter',
         'tld': 'com',
         'path': '',
-        'query': '',
-        'google_search_type': 'Not Google Search'
+        'query': ''
     }
     assert_equals(expected_referrer, referrer_with_url_and_ua)
 
@@ -431,8 +410,7 @@ def test_provided_twitter_url_overrides_what_is_present_in_twitter_useragent():
         'label': 'Twitter',
         'tld': 'com',
         'path': '',
-        'query': '',
-        'google_search_type': 'Not Google Search'
+        'query': ''
     }
     assert_equals(expected_referrer, referrer_with_twitter_url_and_pinterest_ua)
 
@@ -448,8 +426,7 @@ def test_doesnt_fail_if_empty_referrer_url_and_non_social_ua():
         'label': '',
         'tld': '',
         'path': '',
-        'query': '',
-        'google_search_type': 'Not Google Search'
+        'query': ''
     }
     assert_equals(expected_referrer, referrer)
 
@@ -465,8 +442,7 @@ def test_ua_isnt_applied_if_url_is_not_blank():
         'label': 'Savealoonie',
         'tld': 'com',
         'path': '',
-        'query': '',
-        'google_search_type': 'Not Google Search'
+        'query': ''
     }
     assert_equals(expected_referrer, referrer)
 
@@ -481,7 +457,6 @@ def test_pyreferrer_works_with_unicode_urls():
         'path': u'/',
         'subdomain': u'',
         'type': u'indirect',
-        'google_search_type': u'Not Google Search',
         'label': u'Президент'
     }
     assert_equals(referrer, expected_referrer)
@@ -498,7 +473,21 @@ def test_search_with_cyrillics():
         'subdomain': 'www',
         'tld': 'com',
         'path': '/yandsearch',
-        'query': 'ботинки packer-shoes',
-        'google_search_type': 'Not Google Search'
+        'query': 'ботинки packer-shoes'
     }
     assert_equals(expected_referrer, referrer)
+
+
+def test_pyreferrer_works_with_unicode_query_terms():
+    referrer = Referrer.parse(u'https://buy.theanimalrescuesite.greatergood.com/products/74275-pet-lovers-ultralite-woven-mary-jane-shoes?utm_source=ARS-ARS-LAL&utm_medium=paid-fb&utm_term=02052017&utm_content=Photo&utm_campaign=PetLoversUltralite™WovenMaryJaneShoes_74275&origin=ARS_face_sponsor_ARS-LAL_PetLoversUltralite™WovenMaryJaneShoes_74275_02052017')
+    expected_referrer = {
+        'domain': 'greatergood',
+        'label': 'Greatergood',
+        'path': '/products/74275-pet-lovers-ultralite-woven-mary-jane-shoes',
+        'query': '',
+        'subdomain': 'buy.theanimalrescuesite',
+        'tld': 'com',
+        'type': 'indirect',
+        'url': 'https://buy.theanimalrescuesite.greatergood.com/products/74275-pet-lovers-ultralite-woven-mary-jane-shoes?utm_source=ARS-ARS-LAL&utm_medium=paid-fb&utm_term=02052017&utm_content=Photo&utm_campaign=PetLoversUltralite™WovenMaryJaneShoes_74275&origin=ARS_face_sponsor_ARS-LAL_PetLoversUltralite™WovenMaryJaneShoes_74275_02052017' 
+    }
+    assert_equals(referrer, expected_referrer)

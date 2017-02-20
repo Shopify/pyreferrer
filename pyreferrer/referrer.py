@@ -45,7 +45,7 @@ class Referrer:
     def parse_query_string(url, parameters):
         if not parameters:
             return ''
-        query_params = parse_qs(url.query.encode('ascii'), keep_blank_values=True)
+        query_params = parse_qs(url.query.encode('utf-8'), keep_blank_values=True)
         query_common = set.intersection(set(query_params.keys()), set(parameters))
         fragment_params = parse_qs(url.fragment, keep_blank_values=True)
         fragment_common = set.intersection(set(fragment_params.keys()), set(parameters))
@@ -61,13 +61,6 @@ class Referrer:
     @staticmethod
     def is_valid_url(url, domain_info):
         return url.scheme and domain_info.domain and domain_info.suffix
-
-    @staticmethod
-    def google_search_type(ref_type, label, path):
-        if ref_type == Referrer.Types.SEARCH and 'Google' in label:
-            return 'Google AdWords Referrer' if path.startswith('/aclk') or path.startswith('/pagead/aclk') else 'Organic Google Search'
-        else:
-            return 'Not Google Search'
 
     @staticmethod
     def extract_user_agent_info(user_agent):
@@ -120,7 +113,4 @@ class Referrer:
                 referrer['query'] = Referrer.parse_query_string(url, known_url.get('parameters'))
         else:
             referrer['type'] = Referrer.Types.INVALID if raw_url else Referrer.Types.DIRECT
-
-        referrer['google_search_type'] = Referrer.google_search_type(referrer['type'], referrer['label'], referrer['path'])
-
         return referrer

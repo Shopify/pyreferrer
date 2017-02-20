@@ -19,7 +19,6 @@ referrer = 'https://twitter.com/snormore/status/524524090938245120'
 print Referrer.parse(referrer)
 """
 {'domain': 'twitter',
- 'google_search_type': 'Not Google Search',
  'label': 'Twitter',
  'path': '/snormore/status/524524090938245120',
  'query': '',
@@ -39,7 +38,6 @@ referrer = 'http://www.bing.com/search?q=test&go=Submit&qs=n&form=QBLH&pq=test&s
 print Referrer.parse(referrer)
 """
 {'domain': 'bing',
- 'google_search_type': 'Not Google Search',
  'label': 'Bing',
  'path': '/search',
  'query': 'test',
@@ -59,7 +57,6 @@ user_agent_from_pinterest_app = 'Mozilla/5.0 (iPhone; CPU iPhone OS 7_0_4 like M
 print Referrer.parse(referrer, user_agent=user_agent_from_pinterest_app)
 """
 {'domain': 'pinterest',
- 'google_search_type': 'Not Google Search',
  'label': 'Pinterest',
  'path': '',
  'query': '',
