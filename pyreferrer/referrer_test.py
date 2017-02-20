@@ -227,11 +227,11 @@ def test_search_bing_not_live():
 
 def test_search_non_ascii():
     assert_equals.__self__.maxDiff = None
-    referrer = Referrer.parse('https://search.yahoo.com/search;_ylt=A0geu8fBeW5SqVEAZ2vrFAx.;_ylc=X1MDMjExNDcyMTAwMwRfcgMyBGJjawMwbXFjc3RoOHYybjlkJTI2YiUzRDMlMjZzJTNEYWkEY3NyY3B2aWQDWmxUdFhVZ2V1eVVMYVp6c1VmRmRMUXUyMkxfbjJsSnVlY0VBQlhDWQRmcgN5ZnAtdC03MTUEZnIyA3NiLXRvcARncHJpZANVRFRzSGFBUVF0ZUZHZ2hzZ0N3VDNBBG10ZXN0aWQDbnVsbARuX3JzbHQDMARuX3N1Z2cDMARvcmlnaW4DY2Euc2VhcmNoLnlhaG9vLmNvbQRwb3MDMARwcXN0cgMEcHFzdHJsAwRxc3RybAM0NARxdWVyeQN2aW5kdWVzcHVkc25pbmcgbXlzaG9waWZ5IHJlbmf4cmluZyBta29iZXRpYwR0X3N0bXADMTM4Mjk3MjM1NDIzMwR2dGVzdGlkA01TWUNBQzE-?p=vinduespudsning+myshopify+reng%C3%B8ring+mkobetic&fr2=sb-top&fr=yfp-t-715&rd=r1')
+    referrer = Referrer.parse('http://search.yahoo.com/search;_ylt=A0geu8fBeW5SqVEAZ2vrFAx.;_ylc=X1MDMjExNDcyMTAwMwRfcgMyBGJjawMwbXFjc3RoOHYybjlkJTI2YiUzRDMlMjZzJTNEYWkEY3NyY3B2aWQDWmxUdFhVZ2V1eVVMYVp6c1VmRmRMUXUyMkxfbjJsSnVlY0VBQlhDWQRmcgN5ZnAtdC03MTUEZnIyA3NiLXRvcARncHJpZANVRFRzSGFBUVF0ZUZHZ2hzZ0N3VDNBBG10ZXN0aWQDbnVsbARuX3JzbHQDMARuX3N1Z2cDMARvcmlnaW4DY2Euc2VhcmNoLnlhaG9vLmNvbQRwb3MDMARwcXN0cgMEcHFzdHJsAwRxc3RybAM0NARxdWVyeQN2aW5kdWVzcHVkc25pbmcgbXlzaG9waWZ5IHJlbmf4cmluZyBta29iZXRpYwR0X3N0bXADMTM4Mjk3MjM1NDIzMwR2dGVzdGlkA01TWUNBQzE-?p=vinduespudsning+myshopify+rengøring+mkobetic&fr2=sb-top&fr=yfp-t-715&rd=r1')
     expected_referrer = {
         'type': Referrer.Types.SEARCH,
         'label': 'Yahoo!',
-        'url': 'https://search.yahoo.com/search;_ylt=A0geu8fBeW5SqVEAZ2vrFAx.;_ylc=X1MDMjExNDcyMTAwMwRfcgMyBGJjawMwbXFjc3RoOHYybjlkJTI2YiUzRDMlMjZzJTNEYWkEY3NyY3B2aWQDWmxUdFhVZ2V1eVVMYVp6c1VmRmRMUXUyMkxfbjJsSnVlY0VBQlhDWQRmcgN5ZnAtdC03MTUEZnIyA3NiLXRvcARncHJpZANVRFRzSGFBUVF0ZUZHZ2hzZ0N3VDNBBG10ZXN0aWQDbnVsbARuX3JzbHQDMARuX3N1Z2cDMARvcmlnaW4DY2Euc2VhcmNoLnlhaG9vLmNvbQRwb3MDMARwcXN0cgMEcHFzdHJsAwRxc3RybAM0NARxdWVyeQN2aW5kdWVzcHVkc25pbmcgbXlzaG9waWZ5IHJlbmf4cmluZyBta29iZXRpYwR0X3N0bXADMTM4Mjk3MjM1NDIzMwR2dGVzdGlkA01TWUNBQzE-?p=vinduespudsning+myshopify+reng%C3%B8ring+mkobetic&fr2=sb-top&fr=yfp-t-715&rd=r1',
+        'url': 'http://search.yahoo.com/search;_ylt=A0geu8fBeW5SqVEAZ2vrFAx.;_ylc=X1MDMjExNDcyMTAwMwRfcgMyBGJjawMwbXFjc3RoOHYybjlkJTI2YiUzRDMlMjZzJTNEYWkEY3NyY3B2aWQDWmxUdFhVZ2V1eVVMYVp6c1VmRmRMUXUyMkxfbjJsSnVlY0VBQlhDWQRmcgN5ZnAtdC03MTUEZnIyA3NiLXRvcARncHJpZANVRFRzSGFBUVF0ZUZHZ2hzZ0N3VDNBBG10ZXN0aWQDbnVsbARuX3JzbHQDMARuX3N1Z2cDMARvcmlnaW4DY2Euc2VhcmNoLnlhaG9vLmNvbQRwb3MDMARwcXN0cgMEcHFzdHJsAwRxc3RybAM0NARxdWVyeQN2aW5kdWVzcHVkc25pbmcgbXlzaG9waWZ5IHJlbmf4cmluZyBta29iZXRpYwR0X3N0bXADMTM4Mjk3MjM1NDIzMwR2dGVzdGlkA01TWUNBQzE-?p=vinduespudsning+myshopify+rengøring+mkobetic&fr2=sb-top&fr=yfp-t-715&rd=r1',
         'domain': 'yahoo',
         'subdomain': 'search',
         'tld': 'com',
@@ -476,3 +476,18 @@ def test_search_with_cyrillics():
         'query': 'ботинки packer-shoes'
     }
     assert_equals(expected_referrer, referrer)
+
+
+def test_pyreferrer_works_with_unicode_query_terms():
+    referrer = Referrer.parse(u'https://buy.theanimalrescuesite.greatergood.com/products/74275-pet-lovers-ultralite-woven-mary-jane-shoes?utm_source=ARS-ARS-LAL&utm_medium=paid-fb&utm_term=02052017&utm_content=Photo&utm_campaign=PetLoversUltralite™WovenMaryJaneShoes_74275&origin=ARS_face_sponsor_ARS-LAL_PetLoversUltralite™WovenMaryJaneShoes_74275_02052017')
+    expected_referrer = {
+        'domain': 'greatergood',
+        'label': 'Greatergood',
+        'path': '/products/74275-pet-lovers-ultralite-woven-mary-jane-shoes',
+        'query': '',
+        'subdomain': 'buy.theanimalrescuesite',
+        'tld': 'com',
+        'type': 'indirect',
+        'url': 'https://buy.theanimalrescuesite.greatergood.com/products/74275-pet-lovers-ultralite-woven-mary-jane-shoes?utm_source=ARS-ARS-LAL&utm_medium=paid-fb&utm_term=02052017&utm_content=Photo&utm_campaign=PetLoversUltralite™WovenMaryJaneShoes_74275&origin=ARS_face_sponsor_ARS-LAL_PetLoversUltralite™WovenMaryJaneShoes_74275_02052017' 
+    }
+    assert_equals(referrer, expected_referrer)

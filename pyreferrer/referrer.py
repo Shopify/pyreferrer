@@ -45,7 +45,7 @@ class Referrer:
     def parse_query_string(url, parameters):
         if not parameters:
             return ''
-        query_params = parse_qs(url.query.encode('ascii'), keep_blank_values=True)
+        query_params = parse_qs(url.query.encode('utf-8'), keep_blank_values=True)
         query_common = set.intersection(set(query_params.keys()), set(parameters))
         fragment_params = parse_qs(url.fragment, keep_blank_values=True)
         fragment_common = set.intersection(set(fragment_params.keys()), set(parameters))
