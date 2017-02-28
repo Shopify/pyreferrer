@@ -488,6 +488,21 @@ def test_pyreferrer_works_with_unicode_query_terms():
         'subdomain': 'buy.theanimalrescuesite',
         'tld': 'com',
         'type': 'indirect',
-        'url': 'https://buy.theanimalrescuesite.greatergood.com/products/74275-pet-lovers-ultralite-woven-mary-jane-shoes?utm_source=ARS-ARS-LAL&utm_medium=paid-fb&utm_term=02052017&utm_content=Photo&utm_campaign=PetLoversUltralite™WovenMaryJaneShoes_74275&origin=ARS_face_sponsor_ARS-LAL_PetLoversUltralite™WovenMaryJaneShoes_74275_02052017' 
+        'url': 'https://buy.theanimalrescuesite.greatergood.com/products/74275-pet-lovers-ultralite-woven-mary-jane-shoes?utm_source=ARS-ARS-LAL&utm_medium=paid-fb&utm_term=02052017&utm_content=Photo&utm_campaign=PetLoversUltralite™WovenMaryJaneShoes_74275&origin=ARS_face_sponsor_ARS-LAL_PetLoversUltralite™WovenMaryJaneShoes_74275_02052017'
+    }
+    assert_equals(referrer, expected_referrer)
+
+
+def test_pyreferrer_works_with_ip_addresses():
+    referrer = Referrer.parse('http://217.69.139.199/mail')
+    expected_referrer = {
+        'domain': '217.69.139.199',
+        'label': '217.69.139.199',
+        'path': '/mail',
+        'query': '',
+        'subdomain': '',
+        'tld': '',
+        'type': 'indirect',
+        'url': 'http://217.69.139.199/mail'
     }
     assert_equals(referrer, expected_referrer)
