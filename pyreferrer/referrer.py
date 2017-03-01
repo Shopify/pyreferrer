@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 from __future__ import absolute_import
 from pyreferrer.ruleset import Ruleset
+from pyreferrer.ip import is_valid_ip
 import tldextract
 
 try:
@@ -63,6 +64,10 @@ class Referrer:
         return url.scheme and domain_info.domain and domain_info.suffix
 
     @staticmethod
+    def is_valid_ip(url):
+        return url.scheme and is_valid_ip(url.netloc)
+
+    @staticmethod
     def extract_user_agent_info(user_agent):
             empty_info = {'domain': '', 'url': '', 'tld': '', 'registered_domain': ''}
             if user_agent is None:
@@ -78,7 +83,7 @@ class Referrer:
             return Referrer.BLANK_REFERRER
         raw_url = raw_url.strip()
         rules = custom_rules or Referrer.rules
-        url = urlparse(raw_url)
+        parsed_url = urlparse(raw_url)
         domain_info = tldextract.extract(raw_url)
         user_agent_info = Referrer.extract_user_agent_info(user_agent)
 
@@ -89,28 +94,28 @@ class Referrer:
             'domain': domain_info.domain or user_agent_info['domain'],
             'label': domain_info.domain.title(),
             'tld': domain_info.suffix or user_agent_info['tld'],
-            'path': url.path,
+            'path': parsed_url.path,
             'query': ''
         }
 
-        if Referrer.is_valid_url(url, domain_info):
+        if Referrer.is_valid_url(parsed_url, domain_info) or Referrer.is_valid_ip(parsed_url):
             # First check for an exact match of the url. Then check for a match with different combinations of domain, subdomain and tld
-            known_url = rules.get(url.netloc + url.path) \
-                or rules.get(domain_info.registered_domain + url.path) \
-                or rules.get(url.netloc) \
+            known_url = rules.get(parsed_url.netloc + parsed_url.path) \
+                or rules.get(domain_info.registered_domain + parsed_url.path) \
+                or rules.get(parsed_url.netloc) \
                 or rules.get(domain_info.registered_domain)
 
             if known_url:
                 referrer['label'] = known_url['label']
                 referrer['type'] = known_url['type']
-                referrer['query'] = Referrer.parse_query_string(url, known_url.get('parameters'))
+                referrer['query'] = Referrer.parse_query_string(parsed_url, known_url.get('parameters'))
         elif user_agent_info['registered_domain']:
             known_url = rules.get(user_agent_info['registered_domain'])
 
             if known_url:
                 referrer['label'] = known_url['label']
                 referrer['type'] = known_url['type']
-                referrer['query'] = Referrer.parse_query_string(url, known_url.get('parameters'))
+                referrer['query'] = Referrer.parse_query_string(parsed_url, known_url.get('parameters'))
         else:
             referrer['type'] = Referrer.Types.INVALID if raw_url else Referrer.Types.DIRECT
         return referrer
