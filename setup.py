@@ -9,7 +9,7 @@ setup(name='pyreferrer',
       license='MIT',
       packages=['pyreferrer'],
       package_data={'pyreferrer': ['data/*', ]},
-      install_requires=['tldextract==2.0.2'],
+      install_requires=['git+https://github.com/prabcs/tldextract.git@3ed52ab482033c7ec5b3d133a0258fe32d187281#egg=tldextract'],
       extras_require={
           'test': ['nose'],
       },

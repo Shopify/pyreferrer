@@ -1,1 +1,1 @@
-tldextract==2.0.2
+git+https://github.com/prabcs/tldextract.git@3ed52ab482033c7ec5b3d133a0258fe32d187281#egg=tldextract
