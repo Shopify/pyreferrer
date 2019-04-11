@@ -1220,7 +1220,11 @@
                 "webcache.googleusercontent.com",
                 "encrypted.google.com",
                 "googlesyndicatedsearch.com",
-                "www.googleadservices.com"
+                "googlesyndication.com",
+                "doubleclick.net",
+                "googleadservices.com",
+                "googlesyndication.com",
+                ""
             ],
             "parameters": [
                 "q",
@@ -2763,6 +2767,15 @@
                 "Keywords"
             ]
         },
+        "MSN": {
+            "domains": [
+                "msn.com",
+                "msn.net"
+            ],
+            "parameters": [
+                "q"
+            ]
+        },
         "Monstercrawler": {
             "domains": [
                 "www.monstercrawler.com"
@@ -3497,6 +3510,32 @@
                 "q"
             ]
         },
+        "Yelp": {
+            "domains": [
+                "yelp.com",
+                "yelp.ca",
+                "yelp.co.uk",
+                "yelp.com.au",
+                "yelp.de",
+                "yelp.es",
+                "yelp.fr",
+                "yelp.ca",
+                "yelp.co.uk",
+                "yelp.co.nz",
+                "yelp.ie",
+                "yelp.com.hk",
+                "yelp.dk",
+                "yelp.it",
+                "yelp.com.sg",
+                "yelp.com.ph",
+                "yelp.com.br",
+                "yelp.com.ar",
+                "yelp.my"
+            ],
+            "parameters": [
+                "q"
+            ]
+        },
         "Yippy": {
             "domains": [
                 "search.yippy.com"
@@ -3903,7 +3942,27 @@
         },
         "Pinterest": {
             "domains": [
-                "pinterest.com"
+                "pinterest.com",
+                "pinterest.ca",
+                "pinterest.co.uk",
+                "pinterest.de",
+                "pinterest.fr",
+                "pinterest.es",
+                "pinterest.com.au",
+                "pinterest.it",
+                "pinterest.ru",
+                "pinterest.com.mx",
+                "pinterest.nz",
+                "pinterest.ph",
+                "pinterest.co.kr",
+                "pinterest.jp",
+                "pinterest.ie",
+                "pinterest.pt",
+                "pinterest.dk",
+                "pinterest.se",
+                "pinterest.cl",
+                "pinterest.ch",
+                "pinterest.ie"
             ]
         },
         "Plaxo": {
@@ -3929,6 +3988,12 @@
         "Renren": {
             "domains": [
                 "renren.com"
+            ]
+        },
+        "Share A Sale": {
+            "domains": [
+                "shareasale.com",
+                "shareasale-analytics.com"
             ]
         },
         "Skyrock": {
@@ -4068,6 +4133,16 @@
         }
     },
     "unknown": {
+        "Criteo": {
+            "domains": [
+                "criteo.com"
+            ]
+        },
+        "GMA Deals": {
+            "domains": [
+                "gmadeals.com"
+            ]
+        },
         "Google": {
             "domains": [
                 "support.google.com",
@@ -4079,6 +4154,54 @@
                 "groups.google.com",
                 "groups.google.co.uk",
                 "news.google.co.uk"
+            ]
+        },
+        "Laybuy": {
+            "domains": [
+                "laybuy.com"
+            ],
+            "parameters": [
+                "q"
+            ]
+        },
+        "Libertystmedia": {
+            "domains": [
+                "libertystmedia.com"
+            ]
+        },
+        "Linkin.bio": {
+            "domains": [
+                "linkin.bio"
+            ]
+        },
+        "Linktr.ee": {
+            "domains": [
+                "linktr.ee"
+            ]
+        },
+        "Outbrain": {
+            "domains": [
+                "outbrain.com"
+            ]
+        },
+        "Porn Hub": {
+            "domains": [
+                "pornhub.com"
+            ]
+        },
+        "smartURL": {
+            "domains": [
+                "smarturl.it"
+            ]
+        },
+        "Taboola": {
+            "domains": [
+                "taboola.com"
+            ]
+        },
+        "View Your Deal": {
+            "domains": [
+                "viewyourdeal.com"
             ]
         },
         "Yahoo!": {

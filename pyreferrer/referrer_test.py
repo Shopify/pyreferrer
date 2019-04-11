@@ -488,6 +488,75 @@ def test_pyreferrer_works_with_unicode_query_terms():
         'subdomain': 'buy.theanimalrescuesite',
         'tld': 'com',
         'type': 'indirect',
-        'url': 'https://buy.theanimalrescuesite.greatergood.com/products/74275-pet-lovers-ultralite-woven-mary-jane-shoes?utm_source=ARS-ARS-LAL&utm_medium=paid-fb&utm_term=02052017&utm_content=Photo&utm_campaign=PetLoversUltralite™WovenMaryJaneShoes_74275&origin=ARS_face_sponsor_ARS-LAL_PetLoversUltralite™WovenMaryJaneShoes_74275_02052017' 
+        'url': 'https://buy.theanimalrescuesite.greatergood.com/products/74275-pet-lovers-ultralite-woven-mary-jane-shoes?utm_source=ARS-ARS-LAL&utm_medium=paid-fb&utm_term=02052017&utm_content=Photo&utm_campaign=PetLoversUltralite™WovenMaryJaneShoes_74275&origin=ARS_face_sponsor_ARS-LAL_PetLoversUltralite™WovenMaryJaneShoes_74275_02052017'
     }
     assert_equals(referrer, expected_referrer)
+
+def test_maps_same_label_with_different_suffix():
+    pinterest_com = Referrer.parse('https://pinterest.com')
+    pinterest_uk = Referrer.parse('https://pinterest.co.uk')
+    pinterest_au = Referrer.parse('https://www.pinterest.com.au')
+    pinterest_ca = Referrer.parse('https://pinterest.ca')
+    pinterest_non_registered_domain = Referrer.parse('https://pinterest.bs')
+
+    expected_com = {
+        'type': Referrer.Types.SOCIAL,
+        'label': 'Pinterest',
+        'url': 'https://pinterest.com',
+        'domain': 'pinterest',
+        'subdomain': '',
+        'tld': 'com',
+        'path': '',
+        'query': ''
+    }
+
+    expected_uk = {
+        'type': Referrer.Types.SOCIAL,
+        'label': 'Pinterest',
+        'url': 'https://pinterest.co.uk',
+        'domain': 'pinterest',
+        'subdomain': '',
+        'tld': 'co.uk',
+        'path': '',
+        'query': ''
+    }
+
+    expected_au = {
+        'type': Referrer.Types.SOCIAL,
+        'label': 'Pinterest',
+        'url': 'https://www.pinterest.com.au',
+        'domain': 'pinterest',
+        'subdomain': 'www',
+        'tld': 'com.au',
+        'path': '',
+        'query': ''
+    }
+
+    expected_ca = {
+        'type': Referrer.Types.SOCIAL,
+        'label': 'Pinterest',
+        'url': 'https://pinterest.ca',
+        'domain': 'pinterest',
+        'subdomain': '',
+        'tld': 'ca',
+        'path': '',
+        'query': ''
+    }
+
+    # .bs is not a registered domain for Pinterest so it should map to INDIRECT
+    expected_bs = {
+        'type': Referrer.Types.INDIRECT,
+        'label': 'Pinterest',
+        'url': 'https://pinterest.bs',
+        'domain': 'pinterest',
+        'subdomain': '',
+        'tld': 'bs',
+        'path': '',
+        'query': ''
+    }
+
+    assert_equals(pinterest_com, expected_com)
+    assert_equals(pinterest_uk, expected_uk)
+    assert_equals(pinterest_au, expected_au)
+    assert_equals(pinterest_ca, expected_ca)
+    assert_equals(pinterest_non_registered_domain, expected_bs)
