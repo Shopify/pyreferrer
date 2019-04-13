@@ -492,7 +492,7 @@ def test_pyreferrer_works_with_unicode_query_terms():
     }
     assert_equals(referrer, expected_referrer)
 
-def test_maps_same_label_with_different_suffix():
+def test_different_domain_suffix_maps_to_known_label():
     pinterest_com = Referrer.parse('https://pinterest.com')
     pinterest_uk = Referrer.parse('https://pinterest.co.uk')
     pinterest_au = Referrer.parse('https://www.pinterest.com.au')

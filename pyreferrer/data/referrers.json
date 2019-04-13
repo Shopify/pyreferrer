@@ -1223,8 +1223,7 @@
                 "googlesyndication.com",
                 "doubleclick.net",
                 "googleadservices.com",
-                "googlesyndication.com",
-                ""
+                "googlesyndication.com"
             ],
             "parameters": [
                 "q",
@@ -4036,6 +4035,11 @@
                 "taringa.net"
             ]
         },
+        "TikTok": {
+            "domains": [
+                "tiktok.com"
+            ]
+        },
         "Tuenti": {
             "domains": [
                 "tuenti.com"
@@ -4133,9 +4137,19 @@
         }
     },
     "unknown": {
+        "Afterpay": {
+            "domains": [
+                "afterpay.com"
+            ]
+        },
         "Criteo": {
             "domains": [
                 "criteo.com"
+            ]
+        },
+        "Gleam": {
+            "domains": [
+                "gleam.io"
             ]
         },
         "GMA Deals": {
