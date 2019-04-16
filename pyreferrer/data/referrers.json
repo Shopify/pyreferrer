@@ -1222,8 +1222,7 @@
                 "googlesyndicatedsearch.com",
                 "googlesyndication.com",
                 "doubleclick.net",
-                "googleadservices.com",
-                "googlesyndication.com"
+                "googleadservices.com"
             ],
             "parameters": [
                 "q",
@@ -4173,9 +4172,6 @@
         "Laybuy": {
             "domains": [
                 "laybuy.com"
-            ],
-            "parameters": [
-                "q"
             ]
         },
         "Libertystmedia": {
