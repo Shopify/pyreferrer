@@ -1,15 +1,11 @@
 from __future__ import unicode_literals
 from __future__ import absolute_import
-from pyreferrer.ruleset import Ruleset
+
 import tldextract
+import six
+from six.moves.urllib.parse import urlparse, parse_qs
 
-try:
-    # Python2
-    from urlparse import urlparse, parse_qs
-except ImportError:
-    # Python3
-    from urllib.parse import urlparse, parse_qs
-
+from pyreferrer.ruleset import Ruleset
 
 class Referrer:
 
@@ -45,7 +41,11 @@ class Referrer:
     def parse_query_string(url, parameters):
         if not parameters:
             return ''
-        query_params = parse_qs(url.query.encode('utf-8'), keep_blank_values=True)
+
+        url_query = url.query
+        if six.PY2:
+            url_query = url_query.encode('utf-8')
+        query_params = parse_qs(url_query, keep_blank_values=True)
         query_common = set.intersection(set(query_params.keys()), set(parameters))
         fragment_params = parse_qs(url.fragment, keep_blank_values=True)
         fragment_common = set.intersection(set(fragment_params.keys()), set(parameters))
@@ -56,7 +56,10 @@ class Referrer:
             query = fragment_params[list(fragment_common)[0]][0]
         elif '*' in parameters:
             query = ''
-        return query.decode('utf-8')
+
+        if six.PY2:
+            return query.decode('utf-8')
+        return query
 
     @staticmethod
     def is_valid_url(url, domain_info):
