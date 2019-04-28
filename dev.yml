@@ -1,0 +1,15 @@
+name: pyreferrer
+
+up:
+  - python: 2.7.15
+  - python: 3.5.7
+  - pip:
+    - requirements.txt
+  - python_develop
+
+commands:
+  clean:
+    run: find . | grep -E "(__pycache__|\.pyc|\.pyo$)" | xargs rm -rf
+
+  test:
+    run: tox
