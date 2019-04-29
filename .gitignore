@@ -1,3 +1,6 @@
 /venv/
 *.pyc
 pyreferrer.egg-info/
+.python-version
+.tox/
+MANIFEST
