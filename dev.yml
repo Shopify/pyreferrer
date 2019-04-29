@@ -13,3 +13,9 @@ commands:
 
   test:
     run: tox
+
+  release:
+    run: pyreleaser create --only-on master --push
+
+  publish:
+    run: pyreleaser upload
