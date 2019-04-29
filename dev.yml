@@ -2,7 +2,7 @@ name: pyreferrer
 
 up:
   - python: 2.7.15
-  - python: 3.5.7
+  - python: 3.6.2
   - pip:
     - requirements.txt
   - python_develop
