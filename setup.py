@@ -13,7 +13,7 @@ setup(
     license="MIT",
     packages=["pyreferrer"],
     package_data={"pyreferrer": ["data/*"]},
-    install_requires=["tldextract==2.0.2", "six==1.10.0"],
+    install_requires=["tldextract==2.0.2", "six==1.11.0"],
     extras_require={"test": ["nose"]},
     classifiers=[
         "License :: OSI Approved :: MIT License",
