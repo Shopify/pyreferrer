@@ -16,6 +16,7 @@ class Referrer:
         SEARCH = 'search'
         SOCIAL = 'social'
         EMAIL = 'email'
+        PAID = 'paid'
 
     USER_AGENT_SUBSTRINGS = [
         (['Twitter'], {'tld': 'com', 'domain': 'twitter', 'url': 'twitter://twitter.com', 'registered_domain': 'twitter.com'}),
