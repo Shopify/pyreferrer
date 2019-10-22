@@ -4,7 +4,7 @@ from __future__ import absolute_import
 import tldextract
 import six
 from six.moves.urllib.parse import urlparse, parse_qs, parse_qsl
-from ruleset import Ruleset
+from pyreferrer.ruleset import Ruleset
 
 class Referrer:
 
