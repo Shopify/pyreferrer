@@ -1,7 +1,7 @@
 # coding=utf-8
 from __future__ import absolute_import
 from __future__ import unicode_literals
-from pyreferrer.referrer import Referrer
+from referrer import Referrer
 from nose.tools import assert_equals
 
 
@@ -28,7 +28,7 @@ def test_blank_referrer_is_classified_as_direct():
         'url': '',
         'subdomain': '',
         'domain': '',
-        'label': '',
+        'label': 'Direct',
         'tld': '',
         'path': '',
         'query': ''
@@ -334,7 +334,7 @@ def test_search_google_adwords():
 def test_search_google_pagead():
     referrer = Referrer.parse('http://www.googleadservices.com/pagead/aclk?sa=l&q=flowers&ohost=www.google.com')
     expected_referrer = {
-        'type': Referrer.Types.SEARCH,
+        'type': Referrer.Types.PAID,
         'label': 'Google Ads',
         'url': 'http://www.googleadservices.com/pagead/aclk?sa=l&q=flowers&ohost=www.google.com',
         'domain': 'googleadservices',
@@ -423,7 +423,7 @@ def test_doesnt_fail_if_empty_referrer_url_and_non_social_ua():
         'url': '',
         'subdomain': '',
         'domain': '',
-        'label': '',
+        'label': 'Direct',
         'tld': '',
         'path': '',
         'query': ''
@@ -487,7 +487,7 @@ def test_pyreferrer_works_with_unicode_query_terms():
         'query': '',
         'subdomain': 'buy.theanimalrescuesite',
         'tld': 'com',
-        'type': 'indirect',
+        'type': Referrer.Types.PAID,
         'url': 'https://buy.theanimalrescuesite.greatergood.com/products/74275-pet-lovers-ultralite-woven-mary-jane-shoes?utm_source=ARS-ARS-LAL&utm_medium=paid-fb&utm_term=02052017&utm_content=Photo&utm_campaign=PetLoversUltralite™WovenMaryJaneShoes_74275&origin=ARS_face_sponsor_ARS-LAL_PetLoversUltralite™WovenMaryJaneShoes_74275_02052017'
     }
     assert_equals(referrer, expected_referrer)
