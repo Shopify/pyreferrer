@@ -1,6 +1,6 @@
 from setuptools import setup
 
-VERSION = '0.6.6'  # maintained by release tool
+VERSION = '0.6.5'  # maintained by release tool
 
 
 setup(
