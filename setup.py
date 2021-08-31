@@ -1,6 +1,6 @@
 from setuptools import setup
 
-VERSION = '0.6.5'  # maintained by release tool
+VERSION = '0.6.6'  # maintained by release tool
 
 
 setup(
@@ -13,7 +13,7 @@ setup(
     license="MIT",
     packages=["pyreferrer"],
     package_data={"pyreferrer": ["data/*"]},
-    install_requires=["tldextract>=2.0.2,<=2.2.1", "six==1.11.0"],
+    install_requires=["tldextract>=2.0.2,<=2.2.1", "six>=1.11.0"],
     extras_require={"test": ["nose"]},
     classifiers=[
         "License :: OSI Approved :: MIT License",
@@ -24,6 +24,7 @@ setup(
         "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
+	"Programming Language :: Python :: 3.7"
     ],
     include_package_data=True,
     zip_safe=False,
