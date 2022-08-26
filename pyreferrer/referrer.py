@@ -3,8 +3,7 @@ from __future__ import absolute_import
 
 import tldextract
 import six
-from six.moves.urllib.parse import urlparse, parse_qs
-
+from six.moves.urllib.parse import urlparse, parse_qs, parse_qsl
 from pyreferrer.ruleset import Ruleset
 
 class Referrer:
@@ -16,6 +15,7 @@ class Referrer:
         SEARCH = 'search'
         SOCIAL = 'social'
         EMAIL = 'email'
+        PAID = 'paid'
 
     USER_AGENT_SUBSTRINGS = [
         (['Twitter'], {'tld': 'com', 'domain': 'twitter', 'url': 'twitter://twitter.com', 'registered_domain': 'twitter.com'}),
@@ -79,6 +79,7 @@ class Referrer:
     def parse(raw_url, custom_rules=None, user_agent=None):
         if raw_url is None and user_agent is None:
             return Referrer.BLANK_REFERRER
+ 
         raw_url = raw_url.strip()
         rules = custom_rules or Referrer.rules
         url = urlparse(raw_url)
@@ -93,7 +94,7 @@ class Referrer:
             'label': domain_info.domain.title(),
             'tld': domain_info.suffix or user_agent_info['tld'],
             'path': url.path,
-            'query': ''
+            'query': url.query
         }
 
         if Referrer.is_valid_url(url, domain_info):
@@ -102,11 +103,17 @@ class Referrer:
                 or rules.get(domain_info.registered_domain + url.path) \
                 or rules.get(url.netloc) \
                 or rules.get(domain_info.registered_domain)
-
-            if known_url:
+            
+            if 'utm_' in referrer['query']:
+                referrer['type'] = Referrer.Types.PAID
+                params = dict(parse_qsl(referrer['query']))
+                referrer['label'] = (params.get('utm_source') or domain_info.domain.title()).capitalize()
+                
+            elif known_url: 
                 referrer['label'] = known_url['label']
                 referrer['type'] = known_url['type']
                 referrer['query'] = Referrer.parse_query_string(url, known_url.get('parameters'))
+            
         elif user_agent_info['registered_domain']:
             known_url = rules.get(user_agent_info['registered_domain'])
 
@@ -115,5 +122,11 @@ class Referrer:
                 referrer['type'] = known_url['type']
                 referrer['query'] = Referrer.parse_query_string(url, known_url.get('parameters'))
         else:
-            referrer['type'] = Referrer.Types.INVALID if raw_url else Referrer.Types.DIRECT
+            if raw_url:
+                referrer['type'] = Referrer.Types.INVALID
+            
+            else:
+                referrer['type'] = Referrer.Types.DIRECT  
+                referrer['label'] = 'Direct'
+                
         return referrer
