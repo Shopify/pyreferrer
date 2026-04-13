@@ -21,11 +21,12 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.version }}
-      uses: actions/setup-python@v2
+      uses: shop/setup-python-action@main
       with:
         python-version: ${{ matrix.version }}
     - name: Install Dependencies
+      # TODO: add .[test] as dev dependencies via uv
       run: |
-          pip install -e '.[test]'
+          uv venv && uv pip install -e '.[test]'
     - name: Run tests
       run: nosetests
